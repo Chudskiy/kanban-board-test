@@ -1,16 +1,20 @@
 import React from 'react';
 import Column from "./Column/Column";
 import {useSelector} from "react-redux";
+import Task from "../Tasks/Task/Task";
 
 const Columns = (props) => {
     // className="flex flex-col justify-between lg:w-1/6 w-2/6 p-4 bg-gray-300 rounded"
-    const columns = useSelector(state => state.columns);
+    const columns = useSelector(state => state.columns.byId);
 
-    // console.log(columns);
+    console.log('Columns = ', columns);
     return (
         <>
             {columns ? (
-                columns.map(({id, title}) => <Column key={id} title={title} columnId={id}/>)
+                Object.keys(columns).map((columnId) => {
+                    const {id, title} = columns[columnId];
+                    return <Column key={id} id={id} title={title}/>
+                })
             ) : null
             }
         </>

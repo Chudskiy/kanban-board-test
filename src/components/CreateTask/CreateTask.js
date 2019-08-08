@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import uuidv4 from 'uuid/v4'
-import {ADD_TASK} from "../../store/actions/types";
+import {ADD_TASK, ADD_TASK_TO_COLUMN} from "../../store/actions/types";
 
 const CreateColumn = ({columnId}) => {
     const [inputText, setInputText] = useState('');
@@ -20,6 +20,14 @@ const CreateColumn = ({columnId}) => {
             payload: {
                 id: uuidv4(),
                 title: inputText,
+                columnId: columnId
+            }
+        });
+
+        dispatch({
+            type: ADD_TASK_TO_COLUMN,
+            payload: {
+                taskId: uuidv4(),
                 columnId: columnId
             }
         })

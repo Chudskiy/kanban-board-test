@@ -1,19 +1,51 @@
-import {ADD_COLUMN, ADD_TASK} from "../actions/types";
+import {ADD_TASK} from "../actions/types";
+import uuidv4 from 'uuid/v4'
 
-const initialState = [];
+const id = uuidv4();
+
+const initialState = {
+    byId: {
+        [id]: {
+            id: id,
+            title: 'default task',
+            description: '',
+            index: 1
+        },
+    },
+    allIds: [id],
+};
+
 
 const boardsReducer = (state = initialState, action) => {
     console.log('Reducer state = ', state);
 
     switch (action.type) {
         case ADD_TASK:
-            const {id, title, columnId} = action.payload;
+            const {id, title, description} = action.payload;
 
-            const updatedTasks = [...state];
+            const allId = [...state.allIds];
+            allId.push(id);
 
-            updatedTasks.push({id, title, columnId, index: updatedTasks.length});
+            const byId = {...state.byId};
 
-            return updatedTasks;
+            byId[id] = {
+                id: id,
+                title: title,
+                description: description,
+                index: allId.length
+            };
+
+            // const {id, title, columnId} = action.payload;
+            //
+            // const updatedTasks = [...state];
+            //
+            // updatedTasks.push({id, title, columnId, index: updatedTasks.length});
+
+            // return updatedTasks;
+            return {
+                byId: {...byId},
+                allIds: allId
+            };
         default:
             return state;
     }

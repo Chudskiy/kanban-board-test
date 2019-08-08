@@ -43,7 +43,7 @@ const Column = ({title, columnId}) => {
             </div>
 
 
-            <Tasks tasks={tasks}/>
+            {/*<Tasks tasks={tasks}/>*/}
             <CreateTask columnId={columnId}/>
         </div>
     );
