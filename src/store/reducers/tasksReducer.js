@@ -1,4 +1,4 @@
-import {ADD_TASK} from "../actions/types";
+import {ADD_TASK, REORDER_TASKS, REORDER_TASKS_IN_COLUMN} from "../actions/types";
 import uuidv4 from 'uuid/v4'
 import produce from "immer";
 

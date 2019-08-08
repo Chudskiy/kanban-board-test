@@ -14,32 +14,33 @@ const Column = ({title, columnId}) => {
     // const dispatch = useDispatch();
 
     return (
-        <Droppable droppableId={columnId}>
-            {(provided, snapshot) => (
-                <div
-                    ref={provided.innerRef}
-                    // style={getListStyle(snapshot.isDraggingOver)}
-                >
-                    <div
-                        className="flex flex-col justify-between w-64 mr-6 p-4 bg-gray-300 rounded"
-                        style={{minWidth: '300px'}}
-                    >
-                        <div className="flex justify-between items-center">
-                            <h3 className="font-bold">{title}</h3>
 
-                            <div>
-                                <button className="p-3">C</button>
-                                <button className="p-3">R</button>
-                            </div>
-                        </div>
+        <div
+            className="flex flex-col justify-between w-64 mr-6 p-4 bg-gray-300 rounded"
+            style={{minWidth: '300px'}}
+        >
+            <div className="flex justify-between items-center">
+                <h3 className="font-bold">{title}</h3>
 
-                        <Tasks tasks={tasks}/>
-                        <CreateTask columnId={columnId}/>
-                    </div>
-                    {provided.placeholder}
+                <div>
+                    <button className="p-3">C</button>
+                    <button className="p-3">R</button>
                 </div>
-            )}
-        </Droppable>
+            </div>
+            <Droppable droppableId={columnId}>
+                {(provided, snapshot) => (
+                    <div
+                        ref={provided.innerRef}
+                        // style={getListStyle(snapshot.isDraggingOver)}
+                    >
+                        <Tasks tasks={tasks}/>
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+            <CreateTask columnId={columnId}/>
+        </div>
+
     );
 };
 

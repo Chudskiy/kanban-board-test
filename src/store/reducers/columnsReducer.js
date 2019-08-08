@@ -1,4 +1,10 @@
-import {ADD_COLUMN, ADD_TASK_TO_COLUMN, UPDATE_TASKS_IN_COLUMN} from "../actions/types";
+import {
+    ADD_COLUMN,
+    ADD_TASK_TO_COLUMN,
+    REORDER_TASKS,
+    REORDER_TASKS_IN_COLUMN,
+    UPDATE_TASKS_IN_COLUMN
+} from "../actions/types";
 // import uuidv4 from 'uuid/v4'
 import produce from "immer";
 
@@ -48,6 +54,12 @@ const columnsReducer = (state = initialState, action) => {
             return produce(state, draft => {
                 draft.byId[destColumnId].tasks = tasks[destColumnId];
                 draft.byId[sourceColumnId].tasks = tasks[sourceColumnId];
+            });
+
+        case REORDER_TASKS_IN_COLUMN:
+
+            return produce(state, draft => {
+                draft.byId[action.payload.columnId].tasks = action.payload.tasks
             });
 
         default:

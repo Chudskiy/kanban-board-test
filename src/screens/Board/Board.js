@@ -4,10 +4,10 @@ import Columns from "../../components/Columns/Columns";
 import {DragDropContext} from "react-beautiful-dnd";
 import {useDispatch, useSelector} from "react-redux";
 import {getColumn} from "../../store/selectors/columnSelector";
-import {UPDATE_TASKS_IN_COLUMN} from "../../store/actions/types";
+import {REORDER_TASKS_IN_COLUMN, UPDATE_TASKS_IN_COLUMN} from "../../store/actions/types";
 
 const reorder = (list, startIndex, endIndex) => {
-    // console.log(list);
+    console.log(list);
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -39,11 +39,6 @@ const Board = () => {
 
     const dispatch = useDispatch();
 
-    // const getColumn = id => {
-    //     // return columns.find(item => item.id === id).tasks
-    // };
-
-
     const onDragEnd = result => {
         const {source, destination} = result;
 
@@ -63,13 +58,17 @@ const Board = () => {
         if (source.droppableId === destination.droppableId) {
             // console.log('YEAH');
             //
-            // // console.log(getList(source.droppableId));
-            // const items = reorder(
-            //     getList(source.droppableId),
-            //     source.index,
-            //     destination.index
-            // );
-            //
+            // console.log(getList(source.droppableId));
+            const tasks = reorder(
+                columns[source.droppableId].tasks,
+                source.index,
+                destination.index
+            );
+
+            console.log('ITEMS = ',tasks);
+
+
+            reorderTasks(source.droppableId, tasks)
             // // console.log('Items = ', items);
             //
             // setItems(items);
@@ -82,55 +81,14 @@ const Board = () => {
 
             // setSelected(items)
         } else {
-            console.log('NOPE');
-
-
-            // const result = move(
-            //     getList(source.droppableId),
-            //     getList(destination.droppableId),
-            //     source,
-            //     destination
-            // );
-
-            // console.log('SOURCE COLUMN = ', getColumn(source.droppableId));
-            // console.log('DEST COLUMN = ', getColumn(destination.droppableId));
-
-            // console.log('result = ', result);
-
-            console.log('COLLLLLUMN = ', columns[source.droppableId]);
-
             const result = move(
-                // getColumn(source.droppableId),
-                // getColumn(destination.droppableId),
                 columns[source.droppableId].tasks,
                 columns[destination.droppableId].tasks,
                 source,
                 destination
             );
-            console.log('result = ', result);
 
             updateTasks(destination.droppableId, source.droppableId, result)
-            // const newColumns = [...columns];
-            // let newColumn = null;
-            //
-            // for(let columnId in result) {
-            //     // console.log('Column id = ', columnId, ' Item = ', result[columnId]);
-            //     newColumn = columns.find(column => columnId === column.id);
-            //
-            //     newColumn.tasks = [...result[columnId]];
-            //
-            //     newColumns[columnId] = newColumn
-            // }
-
-            // setColumns(newColumns);
-            //
-            // setItems(result.droppable);
-            // setSelected(result.droppable2)
-            // setSelected(result.droppable2)
-            // this.setState({
-            //     items: result.droppable,
-            //     selected: result.droppable2
-            // });
         }
     };
 
@@ -144,6 +102,16 @@ const Board = () => {
             }
         })
     };
+
+    const reorderTasks = ((columnId, tasks) => {
+        dispatch({
+            type: REORDER_TASKS_IN_COLUMN,
+            payload: {
+                columnId,
+                tasks: [...tasks]
+            }
+        })
+    });
 
 
     return (
