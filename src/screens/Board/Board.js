@@ -2,7 +2,9 @@ import React from 'react';
 import CreateColumn from "../../components/CreateColumn/CreateColumn";
 import Columns from "../../components/Columns/Columns";
 import {DragDropContext} from "react-beautiful-dnd";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {getColumn} from "../../store/selectors/columnSelector";
+import {UPDATE_TASKS_IN_COLUMN} from "../../store/actions/types";
 
 const reorder = (list, startIndex, endIndex) => {
     // console.log(list);
@@ -35,10 +37,11 @@ const Board = () => {
     const tasks = useSelector(state => state.tasks.byId);
     const columns = useSelector(state => state.columns.byId);
 
-    const getColumn = id => {
-        return columns.find(item => item.id === id).tasks
-    };
+    const dispatch = useDispatch();
 
+    // const getColumn = id => {
+    //     // return columns.find(item => item.id === id).tasks
+    // };
 
 
     const onDragEnd = result => {
@@ -51,6 +54,8 @@ const Board = () => {
         if (!destination) {
             return;
         }
+
+        // console.log(useSelector(state => getColumn(state, )));
 
         // console.log('SOURCE = ', source);
         // console.log('DESTINATION = ', destination);
@@ -77,7 +82,7 @@ const Board = () => {
 
             // setSelected(items)
         } else {
-            // console.log('NOPE');
+            console.log('NOPE');
 
 
             // const result = move(
@@ -92,26 +97,30 @@ const Board = () => {
 
             // console.log('result = ', result);
 
+            console.log('COLLLLLUMN = ', columns[source.droppableId]);
+
             const result = move(
-                getColumn(source.droppableId),
-                getColumn(destination.droppableId),
+                // getColumn(source.droppableId),
+                // getColumn(destination.droppableId),
+                columns[source.droppableId].tasks,
+                columns[destination.droppableId].tasks,
                 source,
                 destination
             );
             console.log('result = ', result);
 
-
-            const newColumns = [...columns];
-            let newColumn = null;
-
-            for(let columnId in result) {
-                // console.log('Column id = ', columnId, ' Item = ', result[columnId]);
-                newColumn = columns.find(column => columnId === column.id);
-
-                newColumn.tasks = [...result[columnId]];
-
-                newColumns[columnId] = newColumn
-            }
+            updateTasks(destination.droppableId, source.droppableId, result)
+            // const newColumns = [...columns];
+            // let newColumn = null;
+            //
+            // for(let columnId in result) {
+            //     // console.log('Column id = ', columnId, ' Item = ', result[columnId]);
+            //     newColumn = columns.find(column => columnId === column.id);
+            //
+            //     newColumn.tasks = [...result[columnId]];
+            //
+            //     newColumns[columnId] = newColumn
+            // }
 
             // setColumns(newColumns);
             //
@@ -123,6 +132,17 @@ const Board = () => {
             //     selected: result.droppable2
             // });
         }
+    };
+
+    const updateTasks = (destColumnId, sourceColumnId, tasks) => {
+        dispatch({
+            type: UPDATE_TASKS_IN_COLUMN,
+            payload: {
+                destColumnId,
+                sourceColumnId,
+                tasks: {...tasks}
+            }
+        })
     };
 
 

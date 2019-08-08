@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import CreateTask from "../../CreateTask/CreateTask";
 import Tasks from "../../Tasks/Tasks";
 import {getColumnTasks} from "../../../store/selectors/columnSelector";
@@ -11,7 +11,7 @@ const Column = ({title, columnId}) => {
 
     const tasks = useSelector(state => getColumnTasks(state, tasksIds));
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     return (
         <Droppable droppableId={columnId}>
@@ -36,6 +36,7 @@ const Column = ({title, columnId}) => {
                         <Tasks tasks={tasks}/>
                         <CreateTask columnId={columnId}/>
                     </div>
+                    {provided.placeholder}
                 </div>
             )}
         </Droppable>

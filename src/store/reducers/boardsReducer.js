@@ -1,4 +1,4 @@
-import {ADD_COLUMN} from "../actions/types";
+// import {ADD_COLUMN} from "../actions/types";
 import uuidv4 from "uuid/v4"
 
 const initialState = [

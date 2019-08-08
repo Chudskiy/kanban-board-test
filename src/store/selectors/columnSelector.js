@@ -4,3 +4,7 @@ export const getColumnTasks = (state, tasksIds) => {
     })
 };
 
+export const getColumn = (state, columnId) => {
+    return state.columns.byId[columnId]
+};
+

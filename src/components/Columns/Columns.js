@@ -1,7 +1,6 @@
 import React from 'react';
 import Column from "./Column/Column";
 import {useSelector} from "react-redux";
-import Task from "../Tasks/Task/Task";
 
 const Columns = (props) => {
     // className="flex flex-col justify-between lg:w-1/6 w-2/6 p-4 bg-gray-300 rounded"

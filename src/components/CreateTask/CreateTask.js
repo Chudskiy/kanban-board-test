@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import uuidv4 from 'uuid/v4'
 import {ADD_TASK, ADD_TASK_TO_COLUMN} from "../../store/actions/types";
 
