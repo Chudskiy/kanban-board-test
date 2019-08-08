@@ -1,5 +1,6 @@
 import {ADD_TASK} from "../actions/types";
 import uuidv4 from 'uuid/v4'
+import produce from "immer";
 
 const id = uuidv4();
 
@@ -17,35 +18,22 @@ const initialState = {
 
 
 const boardsReducer = (state = initialState, action) => {
-    console.log('Reducer state = ', state);
-
     switch (action.type) {
         case ADD_TASK:
             const {id, title, description} = action.payload;
 
-            const allId = [...state.allIds];
-            allId.push(id);
-
-            const byId = {...state.byId};
-
-            byId[id] = {
-                id: id,
-                title: title,
-                description: description,
-                index: allId.length
+            const newTask = {
+                id,
+                title,
+                description,
+                index: state.allIds.length
             };
 
-            // const {id, title, columnId} = action.payload;
-            //
-            // const updatedTasks = [...state];
-            //
-            // updatedTasks.push({id, title, columnId, index: updatedTasks.length});
+            return produce(state, draft => {
+                draft.byId[id] = newTask;
+                draft.allIds.push(id);
+            });
 
-            // return updatedTasks;
-            return {
-                byId: {...byId},
-                allIds: allId
-            };
         default:
             return state;
     }

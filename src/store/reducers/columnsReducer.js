@@ -1,5 +1,6 @@
 import {ADD_COLUMN, ADD_TASK_TO_COLUMN} from "../actions/types";
 import uuidv4 from 'uuid/v4'
+import produce from "immer";
 
 const id = uuidv4();
 
@@ -15,56 +16,33 @@ const initialState = {
     allIds: [id],
 };
 
-const boardsReducer = (state = initialState, action) => {
-    // console.log('Reducer state = ', state);
-
+const columnsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_COLUMN:
             const {id, title} = action.payload;
 
-            const allId = [...state.allIds];
-            allId.push(id);
-
-            const byId = {...state.byId};
-
-            byId[id] = {
-                id: id,
-                title: title,
+            const newColumn = {
+                id,
+                title,
                 tasks: [],
-                index: allId.length
+                index: state.allIds.length
             };
 
-            // const {id, title, boardId} = action.payload;
-            //
-            // const updatedColumns = [...state];
-            //
-            // updatedColumns.push({id, title, boardId, index: updatedColumns.length});
-            //
-            // return updatedColumns;
+            return produce(state, draft => {
+                draft.byId[id] = newColumn;
+                draft.allIds.push(id);
+            });
 
-            return {
-                byId: {...byId},
-                allIds: allId
-            };
         case ADD_TASK_TO_COLUMN:
             const {columnId, taskId} = action.payload;
 
-            console.log('Column Id = ', columnId);
+            return produce(state, draft => {
+                draft.byId[columnId].tasks.push(taskId)
+            });
 
-            const tasks = [...state.byIds[columnId].tasks];
-            const newById = {...byId};
-            tasks.push(taskId);
-
-            newById[columnId].tasks = tasks;
-
-            return {
-                ...state,
-                byId: {...newById}
-            };
         default:
             return state;
     }
 };
 
-
-export default boardsReducer;
+export default columnsReducer;

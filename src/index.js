@@ -29,7 +29,8 @@ store.subscribe(throttle(() => {
     // console.log('Store get state = ', store.getState());
     saveState({
         boards: store.getState().boards,
-        columns: store.getState().columns
+        columns: store.getState().columns,
+        tasks: store.getState().tasks,
     });
 }, 1000));
 

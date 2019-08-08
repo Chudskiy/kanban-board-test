@@ -13,7 +13,7 @@ const Columns = (props) => {
             {columns ? (
                 Object.keys(columns).map((columnId) => {
                     const {id, title} = columns[columnId];
-                    return <Column key={id} id={id} title={title}/>
+                    return <Column key={id} columnId={id} title={title}/>
                 })
             ) : null
             }

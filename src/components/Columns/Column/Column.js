@@ -2,29 +2,18 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import CreateTask from "../../CreateTask/CreateTask";
 import Tasks from "../../Tasks/Tasks";
+import {getColumnTasks} from "../../../store/selectors/columnSelector";
+
+
+
 
 const Column = ({title, columnId}) => {
-    // const boardId = useSelector(state => state.boards[0].id);
-    const tasks = useSelector(state => state.tasks);
+    const tasksIds = useSelector(state => state.columns.byId[columnId].tasks);
+
+    const tasks = useSelector(state => getColumnTasks(state, tasksIds));
+
 
     const dispatch = useDispatch();
-
-    console.log('Tasks = ', tasks);
-
-    // const inputChangeHandler = ({target}) => {
-    //     setInputText(target.value)
-    // };
-    //
-    // const addColumnHandler = () => {
-    //     dispatch({
-    //         type: ADD_COLUMN,
-    //         payload: {
-    //             id: uuidv4(),
-    //             title: inputText,
-    //             boardId: boardId
-    //         }
-    //     })
-    // };
 
     return (
         <div
@@ -43,7 +32,7 @@ const Column = ({title, columnId}) => {
             </div>
 
 
-            {/*<Tasks tasks={tasks}/>*/}
+            <Tasks tasks={tasks}/>
             <CreateTask columnId={columnId}/>
         </div>
     );

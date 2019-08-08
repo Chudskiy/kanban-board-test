@@ -15,10 +15,12 @@ const CreateColumn = ({columnId}) => {
     };
 
     const addTaskHandler = () => {
+        const taskId = uuidv4();
+
         dispatch({
             type: ADD_TASK,
             payload: {
-                id: uuidv4(),
+                id: taskId,
                 title: inputText,
                 columnId: columnId
             }
@@ -27,7 +29,7 @@ const CreateColumn = ({columnId}) => {
         dispatch({
             type: ADD_TASK_TO_COLUMN,
             payload: {
-                taskId: uuidv4(),
+                taskId: taskId,
                 columnId: columnId
             }
         })
