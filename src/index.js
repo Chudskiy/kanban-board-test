@@ -4,22 +4,32 @@ import App from './App';
 import './assets/css/tailwind.css'
 import {BrowserRouter} from "react-router-dom";
 import {loadState, saveState} from "./localStorage";
-import {createStore} from "redux";
+import {combineReducers, createStore} from "redux";
 import boardsReducer from "./store/reducers/boardsReducer";
 import {Provider} from "react-redux";
 import throttle from "lodash/throttle"
+import columnsReducer from "./store/reducers/columnsReducer";
+import tasksReducer from "./store/reducers/tasksReducer";
 
 
 const persistedState = loadState();
 
+const rootReducer = combineReducers({
+    boards: boardsReducer,
+    columns: columnsReducer,
+    tasks: tasksReducer,
+});
+
 const store = createStore(
-    boardsReducer,
+    rootReducer,
     persistedState
 );
 
 store.subscribe(throttle(() => {
+    // console.log('Store get state = ', store.getState());
     saveState({
-        todos: store.getState().todos
+        boards: store.getState().boards,
+        columns: store.getState().columns
     });
 }, 1000));
 
@@ -27,7 +37,7 @@ const app = (
     <Provider store={store}>
         <BrowserRouter>
             <App/>
-        </BrowserRouter>;
+        </BrowserRouter>
     </Provider>
 );
 
