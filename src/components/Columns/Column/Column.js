@@ -13,6 +13,8 @@ const Column = ({title, columnId}) => {
 
     // const dispatch = useDispatch();
 
+    console.log(tasks);
+
     return (
 
         <div
@@ -31,7 +33,10 @@ const Column = ({title, columnId}) => {
                 {(provided, snapshot) => (
                     <div
                         ref={provided.innerRef}
-                        // style={getListStyle(snapshot.isDraggingOver)}
+                        style={{
+                            height: !tasks.length ? '56px' : ''
+                        }}
+                        // getListStyle(snapshot.isDraggingOver
                     >
                         <Tasks tasks={tasks}/>
                         {provided.placeholder}

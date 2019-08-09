@@ -1,7 +1,6 @@
 import {
     ADD_COLUMN,
     ADD_TASK_TO_COLUMN,
-    REORDER_TASKS,
     REORDER_TASKS_IN_COLUMN,
     UPDATE_TASKS_IN_COLUMN
 } from "../actions/types";
@@ -57,7 +56,6 @@ const columnsReducer = (state = initialState, action) => {
             });
 
         case REORDER_TASKS_IN_COLUMN:
-
             return produce(state, draft => {
                 draft.byId[action.payload.columnId].tasks = action.payload.tasks
             });

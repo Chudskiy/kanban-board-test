@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import CreateColumn from "../../components/CreateColumn/CreateColumn";
 import Columns from "../../components/Columns/Columns";
 import {DragDropContext} from "react-beautiful-dnd";
 import {useDispatch, useSelector} from "react-redux";
-import {getColumn} from "../../store/selectors/columnSelector";
 import {REORDER_TASKS_IN_COLUMN, UPDATE_TASKS_IN_COLUMN} from "../../store/actions/types";
+import Modal from "../../components/UI/Modal/Modal";
+import CreateTask from "../../components/CreateTask/CreateTask";
 
 const reorder = (list, startIndex, endIndex) => {
-    console.log(list);
     const result = Array.from(list);
+
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
 
@@ -16,9 +17,6 @@ const reorder = (list, startIndex, endIndex) => {
 };
 
 const move = (source, destination, droppableSource, droppableDestination) => {
-    console.log('sources', source);
-    console.log('dest', destination);
-
     const sourceClone = Array.from(source);
     const destClone = Array.from(destination);
     const [removed] = sourceClone.splice(droppableSource.index, 1);
@@ -34,7 +32,8 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 
 
 const Board = () => {
-    const tasks = useSelector(state => state.tasks.byId);
+    const [isModalShowed, setIsModalShowed] = useState(true);
+
     const columns = useSelector(state => state.columns.byId);
 
     const dispatch = useDispatch();
@@ -42,44 +41,19 @@ const Board = () => {
     const onDragEnd = result => {
         const {source, destination} = result;
 
-        console.log('SOURCE = ', source);
-        console.log('DEST = ', destination);
-
         // dropped outside the list
         if (!destination) {
             return;
         }
 
-        // console.log(useSelector(state => getColumn(state, )));
-
-        // console.log('SOURCE = ', source);
-        // console.log('DESTINATION = ', destination);
-
         if (source.droppableId === destination.droppableId) {
-            // console.log('YEAH');
-            //
-            // console.log(getList(source.droppableId));
             const tasks = reorder(
                 columns[source.droppableId].tasks,
                 source.index,
                 destination.index
             );
 
-            console.log('ITEMS = ',tasks);
-
-
             reorderTasks(source.droppableId, tasks)
-            // // console.log('Items = ', items);
-            //
-            // setItems(items);
-            // let state = {items};
-            //
-            // if (source.droppableId === 'droppable2') {
-            //     // state = {selected: items};
-            //     setSelected(items)
-            // }
-
-            // setSelected(items)
         } else {
             const result = move(
                 columns[source.droppableId].tasks,
@@ -113,14 +87,21 @@ const Board = () => {
         })
     });
 
+    const hideModalHandler = () => {
+        setIsModalShowed(false)
+    };
 
     return (
-        <div className="flex justify-between items-start h-full w-full py-12 px-12 overflow-x-scroll">
+        <div className="flex justify-between items-start h-full w-full py-12 px-12 overflow-x-scroll bg-gray-200">
             <DragDropContext onDragEnd={onDragEnd}>
             <Columns/>
             </DragDropContext>
 
             <CreateColumn/>
+
+            <Modal isShowed={isModalShowed} hideModal={hideModalHandler}>
+                <CreateTask/>
+            </Modal>
         </div>
     );
 };

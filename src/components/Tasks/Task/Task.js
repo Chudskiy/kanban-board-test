@@ -1,7 +1,7 @@
 import React from 'react';
 import {Draggable} from "react-beautiful-dnd";
 
-const Task = ({id, index, title}) => {
+const Task = ({id, index, title, description}) => {
     return (
         <Draggable
             key={id}
@@ -18,8 +18,13 @@ const Task = ({id, index, title}) => {
                     //     provided.draggableProps.style
                     // )}
                 >
-                    <div className="bg-gray-600">
-                        {title}
+                    <div className="flex justify-between p-4 bg-gray-400 mb-1">
+                        <h3>{title}</h3>
+
+                        <div>
+                            <button>C</button>
+                            <button>R</button>
+                        </div>
                     </div>
                     {provided.placeholder}
                 </div>

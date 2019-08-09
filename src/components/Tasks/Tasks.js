@@ -5,7 +5,16 @@ const Tasks = ({tasks}) => {
     return (
         <>
             {tasks ? (
-                tasks.map((task, index) => <Task key={task.id} id={task.id} index={index} title={task.title}/>)
+                tasks.map((task, index) => (
+                        <Task
+                            key={task.id}
+                            id={task.id}
+                            index={index}
+                            title={task.title}
+                            description={task.description}
+                        />
+                    )
+                )
             ) : null
             }
         </>

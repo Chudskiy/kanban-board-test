@@ -6,7 +6,6 @@ const Columns = (props) => {
     // className="flex flex-col justify-between lg:w-1/6 w-2/6 p-4 bg-gray-300 rounded"
     const columns = useSelector(state => state.columns.byId);
 
-    console.log('Columns = ', columns);
     return (
         <>
             {columns ? (

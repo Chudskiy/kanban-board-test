@@ -37,18 +37,16 @@ const CreateColumn = ({columnId}) => {
 
     return (
         <div
-            className="flex justify-between items-center p-3 lg:w-64 bg-gray-200 border border-gray-500"
-            style={{
-                minWidth: '250px'
-            }}
+            className="flex justify-between items-center lg:w-64 mt-5 bg-gray-200"
+            style={{minWidth: '250px'}}
         >
             <input
                 onChange={inputChangeHandler} value={inputText}
                 className="p-2 w-full bg-gray-100 border border-gray-500 rounded" type="text"
-                placeholder="Add new column"
+                placeholder="Add new task"
             />
 
-            <button onClick={addTaskHandler} className="p-2 bg-gray-300 hover:bg-gray-500 rounded">Add</button>
+            <button onClick={addTaskHandler} className="p-2 bg-gray-300 hover:bg-gray-500 bg-gray-400 ml-5 rounded">Add</button>
         </div>
     );
 };
