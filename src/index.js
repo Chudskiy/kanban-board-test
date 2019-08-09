@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import './index.css'
 import './assets/css/tailwind.css'
 import {BrowserRouter} from "react-router-dom";
 import {loadState, saveState} from "./localStorage";

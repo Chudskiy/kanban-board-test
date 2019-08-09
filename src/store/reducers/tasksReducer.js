@@ -1,4 +1,4 @@
-import {ADD_TASK, REMOVE_TASK, UPDATE_TASK} from "../actions/types";
+import {ADD_TASK, CHANGE_COLUMN_ID_IN_TASK, REMOVE_TASK, UPDATE_TASK} from "../actions/types";
 // import uuidv4 from 'uuid/v4'
 import produce from "immer";
 
@@ -41,31 +41,19 @@ const boardsReducer = (state = initialState, action) => {
                 draft.byId[action.payload.taskId].title = action.payload.title;
                 draft.byId[action.payload.taskId].description = action.payload.description;
             });
-        case REMOVE_TASK:
-            const taskIndex = state.allIds[action.payload.taskId];
 
+        case REMOVE_TASK:
             const updatedTasksIds = state.allIds.filter(taskId => taskId !== action.payload.taskId);
 
-            // console.log('ALL IDS =', state.allIds);
-            //
-            // console.log('Task id = ', action.payload.taskId);
-            // console.log('Updated = ', updatedTasksIds);
-
-
-            // const nextState =  produce(state, draft => {
-            //     delete draft.byId[action.payload.taskId];
-            //     // draft.allIds.filter(id => id !== action.payload.taskId)
-            //     draft.allIds = [...updatedTasksIds]
-            // });
-            //
-            // return nextState;
             return produce(state, draft => {
                 delete draft.byId[action.payload.taskId];
-                // draft.allIds.filter(id => id !== action.payload.taskId)
                 draft.allIds = updatedTasksIds
             });
 
-            // console.log('TASKS NEXT STATE = ', nextState);
+        case CHANGE_COLUMN_ID_IN_TASK:
+            return produce(state, draft => {
+                draft.byId[action.payload.taskId].columnId = action.payload.destColumnId
+            });
 
         default:
             return state;

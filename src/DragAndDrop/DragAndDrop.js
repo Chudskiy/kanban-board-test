@@ -17,6 +17,7 @@ export const move = (source, destination, droppableSource, droppableDestination)
     const result = {};
     result[droppableSource.droppableId] = sourceClone;
     result[droppableDestination.droppableId] = destClone;
+    result.task = removed;
 
     return result;
 };

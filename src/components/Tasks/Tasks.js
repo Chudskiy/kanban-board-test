@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from "./Task/Task";
 
-const Tasks = ({tasks, columnId}) => {
+const Tasks = ({tasks, columnId, boardId}) => {
     return (
         <>
             {tasks ? (
@@ -13,6 +13,7 @@ const Tasks = ({tasks, columnId}) => {
                             title={task.title}
                             columnId={columnId}
                             description={task.description}
+                            boardId={boardId}
                         />
                     )
                 )

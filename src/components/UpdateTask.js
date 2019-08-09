@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getTask} from "../store/selectors/tasksSelector";
 import {UPDATE_TASK} from "../store/actions/types";
 
 const UpdateTask = ({task, hideModal}) => {

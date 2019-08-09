@@ -7,7 +7,7 @@ import {Droppable} from "react-beautiful-dnd";
 import {REMOVE_COLUMN} from "../../../store/actions/types";
 
 
-const Column = ({title, columnId}) => {
+const Column = ({title, columnId, boardId}) => {
     const tasksIds = useSelector(state => state.columns.byId[columnId].tasks);
 
     const tasks = useSelector(state => getColumnTasks(state, tasksIds));
@@ -23,7 +23,7 @@ const Column = ({title, columnId}) => {
         })
     };
 
-    console.log('TASKS = ', tasks);
+    console.log('BOARD ID = ', boardId);
 
     return (
 
@@ -36,7 +36,7 @@ const Column = ({title, columnId}) => {
 
                 <div>
                     <button className="p-3">C</button>
-                    <button className="p-3">R</button>
+                    <button className="p-3" onClick={removeColumn}>R</button>
                 </div>
             </div>
             <Droppable droppableId={columnId}>
@@ -48,7 +48,7 @@ const Column = ({title, columnId}) => {
                         }}
                         // getListStyle(snapshot.isDraggingOver
                     >
-                        <Tasks tasks={tasks} columnId={columnId}/>
+                        <Tasks tasks={tasks} columnId={columnId} boardId={boardId}/>
                         {provided.placeholder}
                     </div>
                 )}

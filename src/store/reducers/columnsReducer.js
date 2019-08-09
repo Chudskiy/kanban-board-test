@@ -28,13 +28,13 @@ const initialState = {
 const columnsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_COLUMN:
-            const {id, title} = action.payload;
+            const {id, title, boardId} = action.payload;
 
             const newColumn = {
                 id,
                 title,
+                boardId,
                 tasks: [],
-                index: state.allIds.length
             };
 
             return produce(state, draft => {
@@ -83,13 +83,36 @@ const columnsReducer = (state = initialState, action) => {
             });
 
         case REMOVE_COLUMN:
+            const updatedColumns = state.allIds.filter(id => id !== action.payload.columnId);
+
             return produce(state, draft => {
-                draft.byId[action.payload.columnId].tasks = action.payload.tasks
+                delete draft.byId[action.payload.columnId];
+                draft.allIds = updatedColumns;
             });
 
         default:
             return state;
     }
 };
+
+// function remove_column(columns, action) {
+//     const {columnId} = action.payload;
+//
+//     const updatedColumns = columns.allIds.filter(id => id !== columnId);
+//
+//     return produce(columns, draft => {
+//         delete draft.byId[columnId];
+//         draft.allIds = updatedColumns;
+//     })
+// }
+//
+// const {reducer, actionTypes} = createReducerAndActionTypes(
+//     {remove_column},
+//     []
+// );
+
+//
+// export default reducer;
+// export {actionTypes};
 
 export default columnsReducer;

@@ -1,9 +1,22 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {HIDE_MODAL} from "../../../store/actions/types";
-import {getTask} from "../../../store/selectors/tasksSelector";
+import UpdateTask from "../../UpdateTask";
+import UpdateColumn from "../../UpdateColumn/UpdateColumn";
 
-const Modal = ({isShowed, children, hideModal}) => {
+const Modal = ({isShowed, children, hideModal, type, data}) => {
+    // let modalBody = null;
+    //
+    // switch (type) {
+    //     case 'update_task':
+    //         modalBody = <UpdateTask task={data} hideModal={hideModal}/>;
+    //         break;
+    //     case 'update_column':
+    //         modalBody = <UpdateColumn column={data} hideModal={hideModal}/>;
+    //         break;
+    //
+    //     default:
+    //         return null
+    // }
+
 
     if (isShowed) {
         return (
@@ -14,38 +27,9 @@ const Modal = ({isShowed, children, hideModal}) => {
                     onClick={hideModal}
                 />
 
-                <div className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                <div
+                    className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
                     {children}
-                    {/*<div*/}
-                    {/*    className="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">*/}
-
-                    {/*    <span className="text-sm">(Esc)</span>*/}
-                    {/*</div>*/}
-
-                    {/*<div className="modal-content py-4 text-left px-6">*/}
-                    {/*    <div className="flex justify-between items-center pb-3">*/}
-                    {/*        <p className="text-2xl font-bold">Simple Modal!</p>*/}
-                    {/*        <div className="modal-close cursor-pointer z-50">*/}
-
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-
-                    {/*    <p>Modal content can go here</p>*/}
-                    {/*    <p>...</p>*/}
-                    {/*    <p>...</p>*/}
-                    {/*    <p>...</p>*/}
-                    {/*    <p>...</p>*/}
-
-                    {/*    <div className="flex justify-end pt-2">*/}
-                    {/*        <button*/}
-                    {/*            className="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Action*/}
-                    {/*        </button>*/}
-                    {/*        <button*/}
-                    {/*            className="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close*/}
-                    {/*        </button>*/}
-                    {/*    </div>*/}
-
-                    {/*</div>*/}
                 </div>
             </div>
         )
