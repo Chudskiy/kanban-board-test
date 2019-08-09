@@ -37,7 +37,7 @@ const CreateColumn = ({columnId}) => {
 
     return (
         <div
-            className="flex justify-between items-center lg:w-64 mt-5 bg-gray-200"
+            className="flex justify-between items-center lg:w-64 mt-5"
             style={{minWidth: '250px'}}
         >
             <input

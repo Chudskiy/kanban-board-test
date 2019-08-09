@@ -1,9 +1,10 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import CreateTask from "../../CreateTask/CreateTask";
 import Tasks from "../../Tasks/Tasks";
 import {getColumnTasks} from "../../../store/selectors/columnSelector";
 import {Droppable} from "react-beautiful-dnd";
+import {REMOVE_COLUMN} from "../../../store/actions/types";
 
 
 const Column = ({title, columnId}) => {
@@ -11,9 +12,18 @@ const Column = ({title, columnId}) => {
 
     const tasks = useSelector(state => getColumnTasks(state, tasksIds));
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    console.log(tasks);
+    const removeColumn = () => {
+        dispatch({
+            type: REMOVE_COLUMN,
+            payload: {
+                columnId: columnId
+            }
+        })
+    };
+
+    console.log('TASKS = ', tasks);
 
     return (
 
@@ -38,7 +48,7 @@ const Column = ({title, columnId}) => {
                         }}
                         // getListStyle(snapshot.isDraggingOver
                     >
-                        <Tasks tasks={tasks}/>
+                        <Tasks tasks={tasks} columnId={columnId}/>
                         {provided.placeholder}
                     </div>
                 )}

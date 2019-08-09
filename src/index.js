@@ -10,6 +10,7 @@ import {Provider} from "react-redux";
 import throttle from "lodash/throttle"
 import columnsReducer from "./store/reducers/columnsReducer";
 import tasksReducer from "./store/reducers/tasksReducer";
+import UIReducer from "./store/reducers/UIReducer";
 
 
 const persistedState = loadState();
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     boards: boardsReducer,
     columns: columnsReducer,
     tasks: tasksReducer,
+    UI: UIReducer
 });
 
 const store = createStore(
@@ -31,6 +33,7 @@ store.subscribe(throttle(() => {
         boards: store.getState().boards,
         columns: store.getState().columns,
         tasks: store.getState().tasks,
+        UI: store.getState().UI
     });
 }, 1000));
 

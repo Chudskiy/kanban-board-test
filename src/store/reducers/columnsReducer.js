@@ -1,6 +1,8 @@
 import {
     ADD_COLUMN,
     ADD_TASK_TO_COLUMN,
+    REMOVE_COLUMN,
+    REMOVE_TASK_FROM_COLUMN,
     REORDER_TASKS_IN_COLUMN,
     UPDATE_TASKS_IN_COLUMN
 } from "../actions/types";
@@ -51,11 +53,36 @@ const columnsReducer = (state = initialState, action) => {
             const {destColumnId, sourceColumnId, tasks} = action.payload;
 
             return produce(state, draft => {
-                draft.byId[destColumnId].tasks = tasks[destColumnId];
-                draft.byId[sourceColumnId].tasks = tasks[sourceColumnId];
+                draft.byId[destColumnId].tasks = [...tasks[destColumnId]];
+                draft.byId[sourceColumnId].tasks = [...tasks[sourceColumnId]];
             });
 
+        case REMOVE_TASK_FROM_COLUMN:
+            // const taskIndex = state.byId[action.payload.columnId].tasks.indexOf(action.payload.columnId);
+            const updatedTasks = state.byId[action.payload.columnId].tasks.filter(taskId => taskId !== action.payload.taskId);
+            //
+            // console.log('COLUMN ID = ', action.payload.columnId);
+            // console.log('COLUMN STATE = ', state.byId);
+            // console.log('COLUMN TASKS = ', state.byId[action.payload.columnId].tasks);
+
+            const nextState = produce(state, draft => {
+                // draft.byId[action.payload.columnId].tasks.splice(taskIndex, 1);
+                draft.byId[action.payload.columnId].tasks = updatedTasks
+            });
+
+            // console.log('COLUMN NEXT STATE', nextState);
+
+            return nextState;
+        // return produce(state, draft => {
+        //     draft.byId[action.payload.columnId].tasks.splice(taskIndex, 1);
+        // });
+
         case REORDER_TASKS_IN_COLUMN:
+            return produce(state, draft => {
+                draft.byId[action.payload.columnId].tasks = action.payload.tasks
+            });
+
+        case REMOVE_COLUMN:
             return produce(state, draft => {
                 draft.byId[action.payload.columnId].tasks = action.payload.tasks
             });

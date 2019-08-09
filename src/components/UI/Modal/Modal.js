@@ -1,6 +1,10 @@
 import React from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {HIDE_MODAL} from "../../../store/actions/types";
+import {getTask} from "../../../store/selectors/tasksSelector";
 
-const Modal = ({isShowed, hideModal, children}) => {
+const Modal = ({isShowed, children, hideModal}) => {
+
     if (isShowed) {
         return (
             <div
