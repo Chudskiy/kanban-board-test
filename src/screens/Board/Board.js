@@ -74,26 +74,6 @@ const Board = () => {
         })
     };
 
-    // let modalChildren = null;
-    //
-    // if (modal.data.type === 'update_task')  {
-    //     modalChildren = <UpdateTask task={task} hideModal={hideModal}/>
-    //
-    // } else if (modal.data.type === 'remove_column'){
-    //     // modalChildren = <UpdateColumn task={task} hideModal={hideModal}/>
-    //
-    // }
-    // const modalChildren = (type, data, hideModal) => {
-    //     switch (type) {
-    //         case 'update_task':
-    //             return <UpdateTask task={data} hideModal={hideModal}/>;
-    //         case 'update_column':
-    //             return <UpdateColumn column={data} hideModal={hideModal}/>;
-    //         default:
-    //             return null
-    //     }
-    // };
-
     return (
         <div
             className="flex justify-between items-start h-full w-full py-12 px-12 overflow-x-scroll bg-gray-200">
