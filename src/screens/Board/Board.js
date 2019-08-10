@@ -3,10 +3,7 @@ import CreateColumn from "../../components/CreateColumn/CreateColumn";
 import Columns from "../../components/Columns/Columns";
 import {DragDropContext} from "react-beautiful-dnd";
 import {useDispatch, useSelector} from "react-redux";
-import {HIDE_MODAL} from "../../store/actions/types";
-import Modal from "../../components/UI/Modal/Modal";
 import {move, reorder} from "../../DragAndDrop/DragAndDrop";
-import UpdateTask from "../../components/UpdateTask";
 import {change_column_id_in_task} from "../../store/actions/tasks";
 import {
     reorder_tasks_in_columns,
@@ -14,11 +11,8 @@ import {
 } from "../../store/actions/columns";
 
 
-
 const Board = () => {
     const columns = useSelector(({columns}) => columns.byId);
-    const modal = useSelector(({UI}) => UI.modal);
-    const task = useSelector(({tasks}) => tasks.byId[modal.data.taskId]);
 
     const dispatch = useDispatch();
 
@@ -68,11 +62,6 @@ const Board = () => {
         dispatch(reorder_tasks_in_columns(payload));
     });
 
-    const hideModal = () => {
-        dispatch({
-            type: HIDE_MODAL,
-        })
-    };
 
     return (
         <div
@@ -82,10 +71,6 @@ const Board = () => {
             </DragDropContext>
 
             <CreateColumn/>
-
-            <Modal isShowed={modal.isShowed} hideModal={hideModal}>
-                <UpdateTask task={task} hideModal={hideModal}/>
-            </Modal>
         </div>
     );
 };

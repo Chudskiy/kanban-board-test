@@ -1,36 +1,28 @@
-import {HIDE_MODAL, SHOW_MODAL} from "../actions/types";
-// import uuidv4 from 'uuid/v4'
 import produce from "immer";
-
-// const id = uuidv4();
+import {handleActions} from "redux-actions";
 
 const initialState = {
-    modal: {
-        isShowed: false,
-        data: {}
-        // children: null
-    }
+    modalIsShowed: false
 };
 
+const show_modal = (state, action) => {
+    console.log('TOGGLE');
 
-const boardsReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case SHOW_MODAL:
-
-            return produce(state, draft => {
-                draft.modal.isShowed = true;
-                draft.modal.data = action.payload.data;
-            });
-        case HIDE_MODAL:
-
-            return produce(state, draft => {
-                draft.modal.isShowed = false;
-                draft.modal.data = {}
-            });
-        default:
-            return state;
-    }
+    return produce(state, draft => {
+        draft.modalIsShowed = true
+    })
 };
 
+const hide_modal = (state, action) => {
+    return produce(state, draft => {
+        draft.modalIsShowed = false
+    })
+};
 
-export default boardsReducer;
+const UIReducer = handleActions(
+    {show_modal, hide_modal},
+    initialState
+);
+
+
+export default UIReducer;
