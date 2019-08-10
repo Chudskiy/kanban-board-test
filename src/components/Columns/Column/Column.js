@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import CreateTask from "../../CreateTask/CreateTask";
 import Tasks from "../../Tasks/Tasks";
@@ -7,9 +7,13 @@ import {Droppable} from "react-beautiful-dnd";
 import {remove_column} from "../../../store/actions/columns";
 import Modal from "../../UI/Modal/Modal";
 import UpdateColumn from "../../UpdateColumn/UpdateColumn";
+import UpdateAndDeleteButtons
+    from "../../UI/UpdateAndDeleteButtons/UpdateAndDeleteButtons";
 
 
 const Column = ({title, columnId, boardId}) => {
+    const [isHovered, setIsHovered] = useState(false);
+
     const tasks = useSelector(state => getColumnTasks(state, columnId));
     const modalIsShowed = useSelector(({UI}) => UI.modalIsShowed);
 
@@ -24,13 +28,17 @@ const Column = ({title, columnId, boardId}) => {
             className="flex flex-col justify-between w-64 mr-6 p-4 bg-gray-300 rounded"
             style={{minWidth: '300px'}}
         >
-            <div className="flex justify-between items-center">
+            <div
+                className="flex justify-between items-center py-3"
+                onMouseOver={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
                 <h3 className="font-bold">{title}</h3>
 
-                <div>
-                    <button className="p-3">C</button>
-                    <button className="p-3" onClick={removeColumn}>R</button>
-                </div>
+                {isHovered ? (
+                    <UpdateAndDeleteButtons removeAction={removeColumn}/>
+                ) : null
+                }
             </div>
             <Droppable droppableId={columnId}>
                 {(provided, snapshot) => (
@@ -54,7 +62,7 @@ const Column = ({title, columnId, boardId}) => {
                 <Modal>
                     <UpdateColumn columnId={columnId}/>
                 </Modal>
-            ) :null
+            ) : null
             }
         </div>
     );

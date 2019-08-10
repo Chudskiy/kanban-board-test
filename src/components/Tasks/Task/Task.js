@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Draggable} from "react-beautiful-dnd";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
@@ -7,8 +7,11 @@ import {remove_task_from_column} from "../../../store/actions/columns";
 import Modal from "../../UI/Modal/Modal";
 import UpdateTask from "../../UpdateTask";
 import {show_modal} from "../../../store/actions/UI";
+import UpdateAndDeleteButtons
+    from "../../UI/UpdateAndDeleteButtons/UpdateAndDeleteButtons";
 
 const Task = ({id, index, title, description, columnId, boardId}) => {
+    const [isHovered, setIsHovered] = useState(false);
     const modalIsShowed = useSelector(({UI}) => UI.modalIsShowed);
 
     const dispatch = useDispatch();
@@ -41,15 +44,22 @@ const Task = ({id, index, title, description, columnId, boardId}) => {
                         //     provided.draggableProps.style
                         // )}
                     >
-                        <div className="flex justify-between p-4 bg-gray-400">
+                        <div
+                            className="flex justify-between p-4 bg-gray-400"
+                            onMouseOver={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                        >
                             <h3><Link
                                 to={`/boards/${boardId}/tasks/${id}`}>{title}</Link>
                             </h3>
 
-                            <div>
-                                <button onClick={showModal}>C</button>
-                                <button onClick={removeTask}>R</button>
-                            </div>
+                            {isHovered ? (
+                                <UpdateAndDeleteButtons
+                                    updateAction={showModal}
+                                    removeAction={removeTask}
+                                />
+                            ) : null}
+
                         </div>
                         {provided.placeholder}
                     </div>
