@@ -1,7 +1,7 @@
 import React from 'react';
 import {Draggable} from "react-beautiful-dnd";
 import {useDispatch} from "react-redux";
-import {REMOVE_TASK_FROM_COLUMN, SHOW_MODAL} from "../../../store/actions/types";
+import {SHOW_MODAL} from "../../../store/actions/types";
 import {Link} from "react-router-dom";
 import {remove_task} from "../../../store/actions/tasks";
 import {remove_task_from_column} from "../../../store/actions/columns";
