@@ -16,9 +16,9 @@ import {
 
 
 const Board = () => {
-    const columns = useSelector(state => state.columns.byId);
-    const modal = useSelector(state => state.UI.modal);
-    const task = useSelector(state => state.tasks.byId[modal.data.taskId]);
+    const columns = useSelector(({columns}) => columns.byId);
+    const modal = useSelector(({UI}) => UI.modal);
+    const task = useSelector(({tasks}) => tasks.byId[modal.data.taskId]);
 
     const dispatch = useDispatch();
 
@@ -56,39 +56,16 @@ const Board = () => {
             sourceColumnId,
             tasks: {...tasks}
         };
-        const changeColumnIdPayload = {
-            destColumnId,
-            taskId
-        };
+        const changeColumnIdPayload = {destColumnId, taskId};
 
         dispatch(update_task_position_in_column(updateTaskPayload));
         dispatch(change_column_id_in_task(changeColumnIdPayload));
-
-        // dispatch({
-        //     type: UPDATE_TASK_POSITION_IN_COLUMN,
-        //
-        // });
-        // dispatch({
-        //     type: CHANGE_COLUMN_ID_IN_TASK,
-        //     payload:
-        // })
     };
 
     const reorderTasks = ((columnId, tasks) => {
-        const payload = {
-            columnId,
-            tasks: [...tasks]
-        };
+        const payload = {columnId, tasks: [...tasks]};
 
         dispatch(reorder_tasks_in_columns(payload));
-
-        // dispatch({
-        //     type: REORDER_TASKS_IN_COLUMNS,
-        //     payload: {
-        //         columnId,
-        //         tasks: [...tasks]
-        //     }
-        // })
     });
 
     const hideModal = () => {

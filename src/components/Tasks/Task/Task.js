@@ -1,8 +1,10 @@
 import React from 'react';
 import {Draggable} from "react-beautiful-dnd";
 import {useDispatch} from "react-redux";
-import {REMOVE_TASK, REMOVE_TASK_FROM_COLUMN, SHOW_MODAL} from "../../../store/actions/types";
+import {REMOVE_TASK_FROM_COLUMN, SHOW_MODAL} from "../../../store/actions/types";
 import {Link} from "react-router-dom";
+import {remove_task} from "../../../store/actions/tasks";
+import {remove_task_from_column} from "../../../store/actions/columns";
 
 const Task = ({id, index, title, description, columnId, boardId}) => {
     const dispatch = useDispatch();
@@ -19,20 +21,10 @@ const Task = ({id, index, title, description, columnId, boardId}) => {
     };
 
     const removeTask = () => {
-        dispatch({
-            type: REMOVE_TASK,
-            payload: {
-                taskId: id
-            }
-        });
+        const taskId = id;
 
-        dispatch({
-            type: REMOVE_TASK_FROM_COLUMN,
-            payload: {
-                taskId: id,
-                columnId: columnId
-            }
-        })
+        dispatch(remove_task({taskId}));
+        dispatch(remove_task_from_column({taskId, columnId}));
     };
 
     return (
@@ -52,7 +44,9 @@ const Task = ({id, index, title, description, columnId, boardId}) => {
                     // )}
                 >
                     <div className="flex justify-between p-4 bg-gray-400">
-                        <h3><Link to={`/boards/${boardId}/tasks/${id}`}>{title}</Link></h3>
+                        <h3><Link
+                            to={`/boards/${boardId}/tasks/${id}`}>{title}</Link>
+                        </h3>
 
                         <div>
                             <button onClick={showModal}>C</button>

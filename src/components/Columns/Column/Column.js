@@ -4,29 +4,20 @@ import CreateTask from "../../CreateTask/CreateTask";
 import Tasks from "../../Tasks/Tasks";
 import {getColumnTasks} from "../../../store/selectors/columnSelector";
 import {Droppable} from "react-beautiful-dnd";
-import {REMOVE_COLUMN} from "../../../store/actions/types";
+import {remove_column} from "../../../store/actions/columns";
 
 
 const Column = ({title, columnId, boardId}) => {
-    const tasksIds = useSelector(state => state.columns.byId[columnId].tasks);
-
+    const tasksIds = useSelector(({columns}) => columns.byId[columnId].tasks);
     const tasks = useSelector(state => getColumnTasks(state, tasksIds));
 
     const dispatch = useDispatch();
 
     const removeColumn = () => {
-        dispatch({
-            type: REMOVE_COLUMN,
-            payload: {
-                columnId: columnId
-            }
-        })
+        dispatch(remove_column({columnId}));
     };
 
-    console.log('BOARD ID = ', boardId);
-
     return (
-
         <div
             className="flex flex-col justify-between w-64 mr-6 p-4 bg-gray-300 rounded"
             style={{minWidth: '300px'}}
@@ -48,14 +39,15 @@ const Column = ({title, columnId, boardId}) => {
                         }}
                         // getListStyle(snapshot.isDraggingOver
                     >
-                        <Tasks tasks={tasks} columnId={columnId} boardId={boardId}/>
+                        <Tasks tasks={tasks} columnId={columnId}
+                               boardId={boardId}/>
                         {provided.placeholder}
                     </div>
                 )}
             </Droppable>
+
             <CreateTask columnId={columnId}/>
         </div>
-
     );
 };
 
