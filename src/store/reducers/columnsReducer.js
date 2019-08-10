@@ -3,8 +3,8 @@ import {
     ADD_TASK_TO_COLUMN,
     REMOVE_COLUMN,
     REMOVE_TASK_FROM_COLUMN,
-    REORDER_TASKS_IN_COLUMN,
-    UPDATE_TASKS_IN_COLUMN
+    REORDER_TASKS_IN_COLUMNS,
+    UPDATE_TASK_POSITION_IN_COLUMN
 } from "../actions/types";
 // import uuidv4 from 'uuid/v4'
 import produce from "immer";
@@ -49,7 +49,7 @@ const columnsReducer = (state = initialState, action) => {
                 draft.byId[columnId].tasks.push(taskId)
             });
 
-        case UPDATE_TASKS_IN_COLUMN:
+        case UPDATE_TASK_POSITION_IN_COLUMN:
             const {destColumnId, sourceColumnId, tasks} = action.payload;
 
             return produce(state, draft => {
@@ -77,7 +77,7 @@ const columnsReducer = (state = initialState, action) => {
         //     draft.byId[action.payload.columnId].tasks.splice(taskIndex, 1);
         // });
 
-        case REORDER_TASKS_IN_COLUMN:
+        case REORDER_TASKS_IN_COLUMNS:
             return produce(state, draft => {
                 draft.byId[action.payload.columnId].tasks = action.payload.tasks
             });

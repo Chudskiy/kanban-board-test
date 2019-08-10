@@ -6,8 +6,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     CHANGE_COLUMN_ID_IN_TASK,
     HIDE_MODAL,
-    REORDER_TASKS_IN_COLUMN,
-    UPDATE_TASKS_IN_COLUMN
+    REORDER_TASKS_IN_COLUMNS,
+    UPDATE_TASK_POSITION_IN_COLUMN
 } from "../../store/actions/types";
 import Modal from "../../components/UI/Modal/Modal";
 import {move, reorder} from "../../DragAndDrop/DragAndDrop";
@@ -51,7 +51,7 @@ const Board = () => {
 
     const updateTasks = (destColumnId, sourceColumnId, tasks, taskId) => {
         dispatch({
-            type: UPDATE_TASKS_IN_COLUMN,
+            type: UPDATE_TASK_POSITION_IN_COLUMN,
             payload: {
                 destColumnId,
                 sourceColumnId,
@@ -70,7 +70,7 @@ const Board = () => {
 
     const reorderTasks = ((columnId, tasks) => {
         dispatch({
-            type: REORDER_TASKS_IN_COLUMN,
+            type: REORDER_TASKS_IN_COLUMNS,
             payload: {
                 columnId,
                 tasks: [...tasks]
