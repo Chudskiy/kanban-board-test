@@ -1,15 +1,22 @@
 import React from 'react';
-import {HIDE_MODAL} from "../../../store/actions/types";
-import {useDispatch} from "react-redux";
+import UpdateTask from "../../UpdateTask";
+import UpdateColumn from "../../UpdateColumn/UpdateColumn";
 
-const Modal = ({isShowed, children}) => {
-    const dispatch = useDispatch();
+const TestModal = ({isShowed, children, hideModal, type, data}) => {
+    // let modalBody = null;
+    //
+    // switch (type) {
+    //     case 'update_task':
+    //         modalBody = <UpdateTask task={data} hideModal={hideModal}/>;
+    //         break;
+    //     case 'update_column':
+    //         modalBody = <UpdateColumn column={data} hideModal={hideModal}/>;
+    //         break;
+    //
+    //     default:
+    //         return null
+    // }
 
-    const hideModal = () => {
-        dispatch({
-            type: HIDE_MODAL,
-        })
-    };
 
     if (isShowed) {
         return (
@@ -30,4 +37,4 @@ const Modal = ({isShowed, children}) => {
         return null
     }
 };
-export default Modal;
+export default TestModal;

@@ -103,9 +103,9 @@ const Board = () => {
 
             <CreateColumn/>
 
-            <Modal isShowed={modal.isShowed} hideModal={hideModal}>
-                <UpdateTask task={task} hideModal={hideModal}/>
-            </Modal>
+            {/*<Modal isShowed={modal.isShowed} hideModal={hideModal}>*/}
+            {/*    <UpdateTask task={task} hideModal={hideModal}/>*/}
+            {/*</Modal>*/}
         </div>
     );
 };

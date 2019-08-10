@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {UPDATE_TASK} from "../store/actions/types";
+import {HIDE_MODAL, SHOW_MODAL, UPDATE_TASK} from "../store/actions/types";
 
-const UpdateTask = ({task, hideModal}) => {
-    const [title, setTitle] = useState(task.title);
-    const [description, setDescription] = useState(task.description);
+const UpdateTask = (props) => {
+    const [title, setTitle] = useState(props.title);
+    const [description, setDescription] = useState(props.description);
 
     const dispatch = useDispatch();
 
@@ -20,13 +20,17 @@ const UpdateTask = ({task, hideModal}) => {
         dispatch({
             type: UPDATE_TASK,
             payload: {
-                taskId: task.id,
+                taskId: props.id,
                 title,
                 description
             }
         });
+    };
 
-        hideModal();
+    const hideModal = () => {
+        dispatch({
+            type: HIDE_MODAL,
+        })
     };
 
     return (
