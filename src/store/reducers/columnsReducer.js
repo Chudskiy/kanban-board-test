@@ -35,6 +35,14 @@ const add_column = (state, action) => {
     });
 };
 
+const update_column = (columns, action) => {
+    const {columnId, title} = action.payload;
+
+    return produce(columns, draft => {
+        draft.byId[columnId].title = title
+    })
+};
+
 const remove_column = (columns, action) => {
     const {columnId} = action.payload;
 
@@ -86,6 +94,7 @@ const reorder_tasks_in_column = (columns, action) => {
 const columnsReducer = handleActions(
     {
         add_column,
+        update_column,
         remove_column,
         remove_task_from_column,
         reorder_tasks_in_column,

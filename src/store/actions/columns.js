@@ -2,8 +2,9 @@ import {
     ADD_COLUMN,
     ADD_TASK_TO_COLUMN,
     REMOVE_COLUMN,
-    REMOVE_TASK_FROM_COLUMN, REORDER_TASKS_IN_COLUMN,
-    REORDER_TASKS_IN_COLUMNS,
+    REMOVE_TASK_FROM_COLUMN,
+    REORDER_TASKS_IN_COLUMN,
+    UPDATE_COLUMN,
     UPDATE_TASK_POSITION_IN_COLUMN
 } from "./types";
 
@@ -14,6 +15,12 @@ export const add_column = (payload) => {
     }
 };
 
+export const update_column = (payload) => {
+    return {
+        type: UPDATE_COLUMN,
+        payload
+    }
+};
 
 export const add_task_to_column = (payload) => {
     return {

@@ -2,7 +2,7 @@ import React from 'react';
 import {HIDE_MODAL} from "../../../store/actions/types";
 import {useDispatch} from "react-redux";
 
-const Modal = ({isShowed, children}) => {
+const Modal = ({isShowed, children, hide}) => {
     const dispatch = useDispatch();
 
     const hideModal = () => {
@@ -17,7 +17,7 @@ const Modal = ({isShowed, children}) => {
                 className="modal fixed w-full h-full top-0 left-0 flex items-center justify-center">
                 <div
                     className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"
-                    onClick={hideModal}
+                    onClick={hide}
                 />
 
                 <div

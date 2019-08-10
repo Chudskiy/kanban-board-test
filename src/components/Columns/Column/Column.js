@@ -6,22 +6,24 @@ import {getColumnTasks} from "../../../store/selectors/columnSelector";
 import {Droppable} from "react-beautiful-dnd";
 import {remove_column} from "../../../store/actions/columns";
 import Modal from "../../UI/Modal/Modal";
-import UpdateColumn from "../../UpdateColumn/UpdateColumn";
 import UpdateAndDeleteButtons
     from "../../UI/UpdateAndDeleteButtons/UpdateAndDeleteButtons";
+import UpdateColumn from "../../UpdateColumn/UpdateColumn";
 
 
 const Column = ({title, columnId, boardId}) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [modalIsShowed, setModalIsShowed] = useState(false);
 
     const tasks = useSelector(state => getColumnTasks(state, columnId));
-    const modalIsShowed = useSelector(({UI}) => UI.modalIsShowed);
+    // const modalIsShowed = useSelector(({UI}) => UI.modalIsShowed);
 
     const dispatch = useDispatch();
 
     const removeColumn = () => {
         dispatch(remove_column({columnId}));
     };
+
 
     return (
         <div
@@ -36,7 +38,9 @@ const Column = ({title, columnId, boardId}) => {
                 <h3 className="font-bold">{title}</h3>
 
                 {isHovered ? (
-                    <UpdateAndDeleteButtons removeAction={removeColumn}/>
+                    <UpdateAndDeleteButtons
+                        updateAction={() => setModalIsShowed(true)}
+                        removeAction={removeColumn}/>
                 ) : null
                 }
             </div>
@@ -58,12 +62,12 @@ const Column = ({title, columnId, boardId}) => {
 
             <CreateTask columnId={columnId}/>
 
-            {modalIsShowed ? (
-                <Modal>
-                    <UpdateColumn columnId={columnId}/>
-                </Modal>
-            ) : null
-            }
+            <Modal isShowed={modalIsShowed} hide={() => setModalIsShowed(false)}>
+                <UpdateColumn
+                    columnId={columnId} title={title}
+                    hideModal={() => setModalIsShowed(false)}
+                />
+            </Modal>
         </div>
     );
 };

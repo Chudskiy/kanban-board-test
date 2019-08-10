@@ -8,7 +8,6 @@ export const REORDER_TASKS_IN_COLUMN = 'reorder_tasks_in_column';
 export const REMOVE_TASK_FROM_COLUMN = 'remove_task_from_column';
 
 
-
 // Tasks Reducer
 export const ADD_TASK = 'add_task';
 export const UPDATE_TASK = 'update_task';
