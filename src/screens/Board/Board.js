@@ -3,15 +3,16 @@ import CreateColumn from "../../components/CreateColumn/CreateColumn";
 import Columns from "../../components/Columns/Columns";
 import {DragDropContext} from "react-beautiful-dnd";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    CHANGE_COLUMN_ID_IN_TASK,
-    HIDE_MODAL,
-    REORDER_TASKS_IN_COLUMNS,
-    UPDATE_TASK_POSITION_IN_COLUMN
-} from "../../store/actions/types";
+import {HIDE_MODAL} from "../../store/actions/types";
 import Modal from "../../components/UI/Modal/Modal";
 import {move, reorder} from "../../DragAndDrop/DragAndDrop";
 import UpdateTask from "../../components/UpdateTask";
+import {change_column_id_in_task} from "../../store/actions/tasks";
+import {
+    reorder_tasks_in_columns,
+    update_task_position_in_column
+} from "../../store/actions/columns";
+
 
 
 const Board = () => {
@@ -50,32 +51,44 @@ const Board = () => {
     };
 
     const updateTasks = (destColumnId, sourceColumnId, tasks, taskId) => {
-        dispatch({
-            type: UPDATE_TASK_POSITION_IN_COLUMN,
-            payload: {
-                destColumnId,
-                sourceColumnId,
-                tasks: {...tasks}
-            }
-        });
+        const updateTaskPayload = {
+            destColumnId,
+            sourceColumnId,
+            tasks: {...tasks}
+        };
+        const changeColumnIdPayload = {
+            destColumnId,
+            taskId
+        };
 
-        dispatch({
-            type: CHANGE_COLUMN_ID_IN_TASK,
-            payload: {
-                destColumnId,
-                taskId
-            }
-        })
+        dispatch(update_task_position_in_column(updateTaskPayload));
+        dispatch(change_column_id_in_task(changeColumnIdPayload));
+
+        // dispatch({
+        //     type: UPDATE_TASK_POSITION_IN_COLUMN,
+        //
+        // });
+        // dispatch({
+        //     type: CHANGE_COLUMN_ID_IN_TASK,
+        //     payload:
+        // })
     };
 
     const reorderTasks = ((columnId, tasks) => {
-        dispatch({
-            type: REORDER_TASKS_IN_COLUMNS,
-            payload: {
-                columnId,
-                tasks: [...tasks]
-            }
-        })
+        const payload = {
+            columnId,
+            tasks: [...tasks]
+        };
+
+        dispatch(reorder_tasks_in_columns(payload));
+
+        // dispatch({
+        //     type: REORDER_TASKS_IN_COLUMNS,
+        //     payload: {
+        //         columnId,
+        //         tasks: [...tasks]
+        //     }
+        // })
     });
 
     const hideModal = () => {
@@ -105,7 +118,8 @@ const Board = () => {
     // };
 
     return (
-        <div className="flex justify-between items-start h-full w-full py-12 px-12 overflow-x-scroll bg-gray-200">
+        <div
+            className="flex justify-between items-start h-full w-full py-12 px-12 overflow-x-scroll bg-gray-200">
             <DragDropContext onDragEnd={onDragEnd}>
                 <Columns/>
             </DragDropContext>

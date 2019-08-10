@@ -1,8 +1,5 @@
-import {ADD_TASK, CHANGE_COLUMN_ID_IN_TASK, REMOVE_TASK, UPDATE_TASK} from "../actions/types";
-// import uuidv4 from 'uuid/v4'
 import produce from "immer";
-
-// const id = uuidv4();
+import {handleActions} from "redux-actions";
 
 const initialState = {
     // byId: {
@@ -18,47 +15,54 @@ const initialState = {
     allIds: [],
 };
 
+const add_task = (tasks, action) => {
+    const {id, title, description, columnId} = action.payload;
 
-const boardsReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case ADD_TASK:
-            const {id, title, description, columnId} = action.payload;
+    const newTask = {
+        id,
+        title,
+        description,
+        columnId,
+    };
 
-            const newTask = {
-                id,
-                title,
-                description,
-                columnId,
-            };
-
-            return produce(state, draft => {
-                draft.byId[id] = newTask;
-                draft.allIds.push(id);
-            });
-
-        case UPDATE_TASK:
-            return produce(state, draft => {
-                draft.byId[action.payload.taskId].title = action.payload.title;
-                draft.byId[action.payload.taskId].description = action.payload.description;
-            });
-
-        case REMOVE_TASK:
-            const updatedTasksIds = state.allIds.filter(taskId => taskId !== action.payload.taskId);
-
-            return produce(state, draft => {
-                delete draft.byId[action.payload.taskId];
-                draft.allIds = updatedTasksIds
-            });
-
-        case CHANGE_COLUMN_ID_IN_TASK:
-            return produce(state, draft => {
-                draft.byId[action.payload.taskId].columnId = action.payload.destColumnId
-            });
-
-        default:
-            return state;
-    }
+    return produce(tasks, draft => {
+        draft.byId[id] = newTask;
+        draft.allIds.push(id);
+    });
 };
 
+const update_task = (tasks, action) => {
+    return produce(tasks, draft => {
+        draft.byId[action.payload.taskId].title = action.payload.title;
+        draft.byId[action.payload.taskId].description = action.payload.description;
+    });
+};
 
-export default boardsReducer;
+const remove_task = (tasks, action) => {
+    const updatedTasksIds = tasks.allIds.filter(id => id !== action.payload.taskId);
+
+    return produce(tasks, draft => {
+        delete draft.byId[action.payload.taskId];
+        draft.allIds = updatedTasksIds
+    });
+};
+
+const change_column_id_in_task = (tasks, action) => {
+    const {taskId, destColumnId} = action.payload;
+
+    return produce(tasks, draft => {
+        draft.byId[taskId].columnId = destColumnId
+    });
+};
+
+const tasksReducer = handleActions(
+    {
+        add_task,
+        update_task,
+        remove_task,
+        change_column_id_in_task
+    },
+    initialState
+);
+
+export default tasksReducer;

@@ -53,7 +53,7 @@ const Column = ({title, columnId, boardId}) => {
                     </div>
                 )}
             </Droppable>
-            {/*<CreateTask columnId={columnId}/>*/}
+            <CreateTask columnId={columnId}/>
         </div>
 
     );
