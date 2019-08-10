@@ -66,6 +66,7 @@ const remove_task_from_column = (columns, action) => {
 };
 
 const update_task_position_in_column = (columns, action) => {
+    console.log('hello');
     const {destColumnId, sourceColumnId, tasks} = action.payload;
 
     return produce(columns, draft => {

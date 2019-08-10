@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {move, reorder} from "../../DragAndDrop/DragAndDrop";
 import {change_column_id_in_task} from "../../store/actions/tasks";
 import {
+    reorder_tasks_in_column,
     reorder_tasks_in_columns,
     update_task_position_in_column
 } from "../../store/actions/columns";
@@ -30,6 +31,8 @@ const Board = () => {
                 source.index,
                 destination.index
             );
+
+            console.log(tasks);
 
             reorderTasks(source.droppableId, tasks)
         } else {
@@ -59,7 +62,7 @@ const Board = () => {
     const reorderTasks = ((columnId, tasks) => {
         const payload = {columnId, tasks: [...tasks]};
 
-        dispatch(reorder_tasks_in_columns(payload));
+        dispatch(reorder_tasks_in_column(payload));
     });
 
 

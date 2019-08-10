@@ -4,7 +4,7 @@ export const UPDATE_COLUMN = 'update_column';
 export const REMOVE_COLUMN = 'remove_column';
 export const ADD_TASK_TO_COLUMN = 'add_task_to_column';
 export const UPDATE_TASK_POSITION_IN_COLUMN = 'update_task_position_in_column';
-export const REORDER_TASKS_IN_COLUMNS = 'reorder_tasks_in_columns';
+export const REORDER_TASKS_IN_COLUMN = 'reorder_tasks_in_column';
 export const REMOVE_TASK_FROM_COLUMN = 'remove_task_from_column';
 
 
