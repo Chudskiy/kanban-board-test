@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {HIDE_MODAL, SHOW_MODAL, UPDATE_TASK} from "../store/actions/types";
+import {useDispatch} from "react-redux";
+import {hide_modal} from "../store/actions/UI";
+import {update_task} from "../store/actions/tasks";
 
 const UpdateTask = (props) => {
     const [title, setTitle] = useState(props.title);
@@ -17,30 +18,35 @@ const UpdateTask = (props) => {
     };
 
     const updateTask = () => {
-        dispatch({
-            type: UPDATE_TASK,
-            payload: {
-                taskId: props.id,
-                title,
-                description
-            }
-        });
+        const payload = {
+            taskId: props.id,
+            title,
+            description
+        };
+
+        dispatch(update_task(payload));
+        dispatch(hide_modal());
     };
 
     const hideModal = () => {
-        dispatch({
-            type: HIDE_MODAL,
-        })
+        dispatch(hide_modal());
     };
 
     return (
         <div className="flex flex-col justify-between p-4 bg-gray-100">
             <h3 className="text-3xl text-center text-gray-900">Update Task</h3>
 
-            <label className="text-xl mt-3 mb-2 block text-gray-800">Title</label>
-            <input className="p-2 bg-white border border-gray-600 rounded" type="text" value={title} onChange={onTitleInputChange}/>
+            <label className="text-xl mt-3 mb-2 block text-gray-800">
+                Title
+            </label>
+            <input
+                className="p-2 bg-white border border-gray-600 rounded"
+                type="text" value={title} onChange={onTitleInputChange}
+            />
 
-            <label className="text-xl mt-3 mb-2 block text-gray-800">Description</label>
+            <label className="text-xl mt-3 mb-2 block text-gray-800">
+                Description
+            </label>
             <textarea
                 className="p-2 bg-white border border-gray-600 rounded"
                 type="text"
@@ -50,8 +56,18 @@ const UpdateTask = (props) => {
             />
 
             <div className="flex justify-between mx-auto mt-5">
-                <button className="p-3 mr-4 bg-gray-400 rounded" onClick={updateTask}>Update</button>
-                <button className="p-3 border border-gray-400 rounded" onClick={hideModal}>Cancel</button>
+                <button
+                    className="p-3 mr-4 bg-gray-400 rounded"
+                    onClick={updateTask}
+                >
+                    Update
+                </button>
+                <button
+                    className="p-3 border border-gray-400 rounded"
+                    onClick={hideModal}
+                >
+                    Cancel
+                </button>
             </div>
         </div>
     );

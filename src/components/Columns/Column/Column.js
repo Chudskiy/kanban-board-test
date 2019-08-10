@@ -5,11 +5,13 @@ import Tasks from "../../Tasks/Tasks";
 import {getColumnTasks} from "../../../store/selectors/columnSelector";
 import {Droppable} from "react-beautiful-dnd";
 import {remove_column} from "../../../store/actions/columns";
+import Modal from "../../UI/Modal/Modal";
+import UpdateColumn from "../../UpdateColumn/UpdateColumn";
 
 
 const Column = ({title, columnId, boardId}) => {
-    const tasksIds = useSelector(({columns}) => columns.byId[columnId].tasks);
-    const tasks = useSelector(state => getColumnTasks(state, tasksIds));
+    const tasks = useSelector(state => getColumnTasks(state, columnId));
+    const modalIsShowed = useSelector(({UI}) => UI.modalIsShowed);
 
     const dispatch = useDispatch();
 
@@ -47,6 +49,13 @@ const Column = ({title, columnId, boardId}) => {
             </Droppable>
 
             <CreateTask columnId={columnId}/>
+
+            {modalIsShowed ? (
+                <Modal>
+                    <UpdateColumn columnId={columnId}/>
+                </Modal>
+            ) :null
+            }
         </div>
     );
 };

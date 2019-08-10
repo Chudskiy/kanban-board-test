@@ -1,27 +1,20 @@
 import React from 'react';
 import {Draggable} from "react-beautiful-dnd";
 import {useDispatch, useSelector} from "react-redux";
-import {SHOW_MODAL} from "../../../store/actions/types";
 import {Link} from "react-router-dom";
 import {remove_task} from "../../../store/actions/tasks";
 import {remove_task_from_column} from "../../../store/actions/columns";
 import Modal from "../../UI/Modal/Modal";
 import UpdateTask from "../../UpdateTask";
+import {show_modal} from "../../../store/actions/UI";
 
 const Task = ({id, index, title, description, columnId, boardId}) => {
-    const modal = useSelector(({UI}) => UI.modal);
+    const modalIsShowed = useSelector(({UI}) => UI.modalIsShowed);
 
     const dispatch = useDispatch();
 
     const showModal = () => {
-        dispatch({
-            type: SHOW_MODAL,
-            payload: {
-                data: {
-                    taskId: id
-                }
-            }
-        })
+        dispatch(show_modal());
     };
 
     const removeTask = () => {
@@ -63,8 +56,8 @@ const Task = ({id, index, title, description, columnId, boardId}) => {
                 )}
             </Draggable>
 
-            {modal.isShowed ? (
-                <Modal isShowed={modal.isShowed}>
+            {modalIsShowed ? (
+                <Modal isShowed={modalIsShowed}>
                     <UpdateTask id={id} title={title} description={description}/>
                 </Modal>
             ) : null

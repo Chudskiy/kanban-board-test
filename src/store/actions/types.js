@@ -15,6 +15,9 @@ export const UPDATE_TASK = 'update_task';
 export const REMOVE_TASK = 'remove_task';
 export const CHANGE_COLUMN_ID_IN_TASK = 'change_column_id_in_task';
 
+// UI Reducer
+export const SHOW_MODAL = 'show_modal';
+export const HIDE_MODAL = 'hide_modal';
 //
 // // UI Reducer
 // export const SHOW_MODAL = 'SHOW_MODAL';
@@ -34,5 +37,5 @@ export const CHANGE_COLUMN_ID_IN_TASK = 'change_column_id_in_task';
 // export const REMOVE_TASK = 'REMOVE_TASK';
 // export const CHANGE_COLUMN_ID_IN_TASK = 'CHANGE_COLUMN_ID_IN_TASK';
 
-export const SHOW_MODAL = 'SHOW_MODAL';
-export const HIDE_MODAL = 'HIDE_MODAL';
+// export const SHOW_MODAL = 'SHOW_MODAL';
+// export const HIDE_MODAL = 'HIDE_MODAL';
