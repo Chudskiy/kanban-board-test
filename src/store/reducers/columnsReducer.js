@@ -1,13 +1,6 @@
-import {
-    ADD_COLUMN,
-    ADD_TASK_TO_COLUMN,
-    REMOVE_COLUMN,
-    REMOVE_TASK_FROM_COLUMN,
-    REORDER_TASKS_IN_COLUMNS,
-    UPDATE_TASK_POSITION_IN_COLUMN
-} from "../actions/types";
 // import uuidv4 from 'uuid/v4'
 import produce from "immer";
+import {handleActions} from "redux-actions";
 
 // const id = uuidv4();
 
@@ -26,7 +19,7 @@ const initialState = {
 };
 
 
-const add_column = (columns, action) => {
+const add_column = (state, action) => {
     const {id, title, boardId} = action.payload;
 
     const newColumn = {
@@ -36,7 +29,7 @@ const add_column = (columns, action) => {
         tasks: [],
     };
 
-    return produce(columns, draft => {
+    return produce(state, draft => {
         draft.byId[id] = newColumn;
         draft.allIds.push(id);
     });
@@ -68,7 +61,6 @@ const remove_task_from_column = (columns, action) => {
     const updatedTasks = tasks.filter(id => id !== taskId);
 
     return produce(columns, draft => {
-        // draft.byId[action.payload.columnId].tasks.splice(taskIndex, 1);
         draft.byId[columnId].tasks = updatedTasks
     });
 };
@@ -90,6 +82,17 @@ const reorder_tasks_in_column = (columns, action) => {
     });
 };
 
+const columnsReducer = handleActions(
+    {
+        add_column,
+        remove_column,
+        remove_task_from_column,
+        reorder_tasks_in_column,
+        update_task_position_in_column,
+        add_task_to_column
+    },
+    initialState
+);
 
 // const columnsReducer = (state = initialState, action) => {
 //     switch (action.type) {
@@ -180,5 +183,6 @@ const reorder_tasks_in_column = (columns, action) => {
 //
 // export default reducer;
 // export {actionTypes};
+
 
 export default columnsReducer;
