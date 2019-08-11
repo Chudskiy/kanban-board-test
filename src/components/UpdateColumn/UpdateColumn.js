@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import {hide_modal} from "../../store/actions/UI";
 import {update_column} from "../../store/actions/columns";
 
 const UpdateColumn = (props) => {
@@ -13,19 +12,13 @@ const UpdateColumn = (props) => {
     };
 
     const updateColumn = () => {
-        const payload = {
+        dispatch(update_column({
             columnId: props.columnId,
             title
-        };
-
-        dispatch(update_column(payload))
+        }));
 
         props.hideModal();
     };
-
-    // const hideModal = () => {
-    //     dispatch(hide_modal());
-    // };
 
     return (
         <div className="flex flex-col justify-between p-4 bg-gray-100">
@@ -36,7 +29,9 @@ const UpdateColumn = (props) => {
             </label>
             <input
                 className="p-2 bg-white border border-gray-600 rounded"
-                type="text" value={title} onChange={onTitleInputChange}
+                type="text"
+                value={title}
+                onChange={onTitleInputChange}
             />
 
 
