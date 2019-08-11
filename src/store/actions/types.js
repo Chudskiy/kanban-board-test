@@ -13,3 +13,8 @@ export const ADD_TASK = 'add_task';
 export const UPDATE_TASK = 'update_task';
 export const REMOVE_TASK = 'remove_task';
 export const CHANGE_COLUMN_ID_IN_TASK = 'change_column_id_in_task';
+
+// Boards Reducer
+export const ADD_BOARD = 'add_board';
+export const ADD_COLUMN_TO_BOARD = 'add_column_to_board';
+export const REMOVE_COLUMN_FROM_BOARD = 'remove_column_from_board';

@@ -4,8 +4,8 @@ import {NavLink} from "react-router-dom";
 const Layout = ({children}) => {
     return (
         <div className="h-full w-full">
-            <nav className="h-12 bg-gray-900">
-                <NavLink to="/boards/1" className="text-white">Board</NavLink>
+            <nav className="flex items-center h-12 px-12 bg-gray-900">
+                <NavLink to="/boards" className="text-white">Boards</NavLink>
             </nav>
 
             <main>{children}</main>

@@ -9,11 +9,16 @@ import {
     reorder_tasks_in_column,
     update_task_position_in_column
 } from "../../store/actions/columns";
+import {getBoardColumns} from "../../store/selectors/selector";
 
 
-const Board = () => {
-    const columns = useSelector(({columns}) => columns.byId);
-
+const Board = ({match}) => {
+    // const board = useSelector(({boards}) => boards.byId[match.params.boardId]);
+    // const columns = useSelector(({columns}) => columns.byId);
+    const boardId = match.params.id;
+    const columns = useSelector(state => getBoardColumns(state, boardId));
+    // const columns = null;
+    // console.log(match);
     const dispatch = useDispatch();
 
     const onDragEnd = result => {
@@ -30,8 +35,6 @@ const Board = () => {
                 source.index,
                 destination.index
             );
-
-            console.log(tasks);
 
             reorderTasks(source.droppableId, tasks)
         } else {
@@ -69,10 +72,10 @@ const Board = () => {
         <div
             className="flex justify-between items-start h-full w-full py-12 px-12 overflow-x-scroll bg-gray-200">
             <DragDropContext onDragEnd={onDragEnd}>
-                <Columns/>
+                <Columns columns={columns}/>
             </DragDropContext>
 
-            <CreateColumn/>
+            <CreateColumn boardId={boardId}/>
         </div>
     );
 };

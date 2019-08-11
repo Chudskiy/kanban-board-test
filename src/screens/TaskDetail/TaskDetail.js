@@ -1,8 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
-import {remove_task} from "../store/actions/tasks";
-import {remove_task_from_column} from "../store/actions/columns";
+import {remove_task} from "../../store/actions/tasks";
+import {remove_task_from_column} from "../../store/actions/columns";
 import {Redirect} from "react-router-dom";
 
 const TaskDetail = ({match, history}) => {

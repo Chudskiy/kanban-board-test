@@ -24,6 +24,7 @@ const CreateColumn = ({columnId}) => {
         if (inputText.trim().length === 0) {
             return
         }
+        setInputText('');
 
         const taskId = uuidv4();
 

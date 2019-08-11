@@ -12,7 +12,14 @@ export const getColumnTasks = (state, columnId) => {
     })
 };
 
-export const getColumn = (state, columnId) => {
-    return state.columns.byId[columnId]
+export const getBoardColumns = (state, boardId) => {
+    const columnIds = state.boards.byId[boardId].columns;
+
+    console.log(columnIds);
+
+    return columnIds.map(columnId => {
+        return state.columns.byId[columnId]
+    })
 };
+
 

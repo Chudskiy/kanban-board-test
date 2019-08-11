@@ -2,9 +2,9 @@ import React from 'react';
 import Column from "./Column/Column";
 import {useSelector} from "react-redux";
 
-const Columns = (props) => {
+const Columns = ({columns}) => {
     // className="flex flex-col justify-between lg:w-1/6 w-2/6 p-4 bg-gray-300 rounded"
-    const columns = useSelector(state => state.columns.byId);
+    // const columns = useSelector(state => state.columns.byId);
 
     return (
         <>

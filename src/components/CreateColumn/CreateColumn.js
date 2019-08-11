@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import uuidv4 from 'uuid/v4'
 import {add_column} from "../../store/actions/columns";
+import {add_column_to_board} from "../../store/actions/boards";
 
 const CreateColumn = (props) => {
     const [inputText, setInputText] = useState('');
 
-    const boardId = useSelector(({boards}) => boards[0].id);
+    // const boardId = useSelector(({boards}) => boards.byId[props.boardId].id);
+
 
     const dispatch = useDispatch();
 
@@ -25,19 +27,21 @@ const CreateColumn = (props) => {
         if (inputText.trim().length === 0) {
             return;
         }
+        setInputText('');
 
+        const columnId = uuidv4();
         dispatch(add_column({
-            id: uuidv4(),
+            id: columnId,
             title: inputText,
-            boardId: boardId
+            boardId: props.boardId
+        }));
+
+        dispatch(add_column_to_board({
+            boardId: props.boardId,
+            columnId
         }))
     };
 
-    const validateInput = (input) => {
-        if (input.trim().length === 0) {
-            return;
-        }
-    };
     return (
         <div
             className="flex justify-between items-center p-3 lg:w-64 bg-gray-200 border border-gray-500"
