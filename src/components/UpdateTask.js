@@ -20,6 +20,7 @@ const UpdateTask = (props) => {
     const updateTask = () => {
         const payload = {
             taskId: props.id,
+            updatedAt: Date.now(),
             title,
             description
         };

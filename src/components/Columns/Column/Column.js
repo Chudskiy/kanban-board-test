@@ -62,12 +62,18 @@ const Column = ({title, columnId, boardId}) => {
 
             <CreateTask columnId={columnId}/>
 
-            <Modal isShowed={modalIsShowed} hide={() => setModalIsShowed(false)}>
-                <UpdateColumn
-                    columnId={columnId} title={title}
-                    hideModal={() => setModalIsShowed(false)}
-                />
-            </Modal>
+            {modalIsShowed ? (
+                <Modal
+                    isShowed={modalIsShowed}
+                    hide={() => setModalIsShowed(false)}
+                >
+                    <UpdateColumn
+                        columnId={columnId} title={title}
+                        hideModal={() => setModalIsShowed(false)}
+                    />
+                </Modal>
+            ) : null
+            }
         </div>
     );
 };

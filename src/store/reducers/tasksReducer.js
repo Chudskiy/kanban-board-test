@@ -16,25 +16,39 @@ const initialState = {
 };
 
 const add_task = (tasks, action) => {
-    const {id, title, description, columnId} = action.payload;
+    console.log('HELLO');
+    const {id, title, description, columnId, createdAt} = action.payload;
 
     const newTask = {
         id,
         title,
         description,
         columnId,
+        createdAt,
+        updatedAt: null
     };
 
+    // const nextState =  produce(tasks, draft => {
+    //     draft.byId[id] = newTask;
+    //     draft.allIds.push(id);
+    // });
+
+    // console.log(nextState);
     return produce(tasks, draft => {
         draft.byId[id] = newTask;
         draft.allIds.push(id);
     });
+
+
 };
 
 const update_task = (tasks, action) => {
+    const {taskId, title, description, updatedAt} = action.payload;
+
     return produce(tasks, draft => {
-        draft.byId[action.payload.taskId].title = action.payload.title;
-        draft.byId[action.payload.taskId].description = action.payload.description;
+        draft.byId[taskId].title = title;
+        draft.byId[taskId].description = description;
+        draft.byId[taskId].updatedAt = updatedAt;
     });
 };
 

@@ -28,7 +28,8 @@ const CreateColumn = ({columnId}) => {
         const taskId = uuidv4();
 
         const addTaskPayload = {
-            id: uuidv4(),
+            id: taskId,
+            createdAt: Date.now(),
             title: inputText,
             columnId: columnId
         };
