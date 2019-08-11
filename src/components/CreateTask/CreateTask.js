@@ -15,8 +15,8 @@ const CreateColumn = ({columnId}) => {
 
     const onKeyDownHandler = ({key}) => {
         if (key === 'Enter') {
+            addTaskHandler();
             setInputText('');
-            addTaskHandler()
         }
     };
 
@@ -27,19 +27,13 @@ const CreateColumn = ({columnId}) => {
 
         const taskId = uuidv4();
 
-        const addTaskPayload = {
+        dispatch(add_task({
             id: taskId,
             createdAt: Date.now(),
             title: inputText,
             columnId: columnId
-        };
-
-        const addTaskToColumnPayload = {
-            taskId, columnId: columnId
-        };
-
-        dispatch(add_task(addTaskPayload));
-        dispatch(add_task_to_column(addTaskToColumnPayload))
+        }));
+        dispatch(add_task_to_column({taskId, columnId}))
     };
 
     return (

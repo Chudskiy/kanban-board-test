@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import {hide_modal} from "../store/actions/UI";
 import {update_task} from "../store/actions/tasks";
 
 const UpdateTask = (props) => {
@@ -18,19 +17,14 @@ const UpdateTask = (props) => {
     };
 
     const updateTask = () => {
-        const payload = {
+        dispatch(update_task({
             taskId: props.id,
             updatedAt: Date.now(),
             title,
             description
-        };
+        }));
 
-        dispatch(update_task(payload));
-        dispatch(hide_modal());
-    };
-
-    const hideModal = () => {
-        dispatch(hide_modal());
+        props.hideModal();
     };
 
     return (
@@ -65,7 +59,7 @@ const UpdateTask = (props) => {
                 </button>
                 <button
                     className="p-3 border border-gray-400 rounded"
-                    onClick={hideModal}
+                    onClick={props.hideModal}
                 >
                     Cancel
                 </button>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Draggable} from "react-beautiful-dnd";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import {remove_task} from "../../../store/actions/tasks";
 import {remove_task_from_column} from "../../../store/actions/columns";
@@ -12,7 +12,7 @@ import UpdateAndDeleteButtons
 
 const Task = ({id, index, title, description, columnId, boardId}) => {
     const [isHovered, setIsHovered] = useState(false);
-    const modalIsShowed = useSelector(({UI}) => UI.modalIsShowed);
+    const [modalIsShowed, setModalIsShowed] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -55,7 +55,7 @@ const Task = ({id, index, title, description, columnId, boardId}) => {
 
                             {isHovered ? (
                                 <UpdateAndDeleteButtons
-                                    updateAction={showModal}
+                                    updateAction={() => setModalIsShowed(true)}
                                     removeAction={removeTask}
                                 />
                             ) : null}
@@ -67,8 +67,13 @@ const Task = ({id, index, title, description, columnId, boardId}) => {
             </Draggable>
 
             {modalIsShowed ? (
-                <Modal isShowed={modalIsShowed}>
-                    <UpdateTask id={id} title={title} description={description}/>
+                <Modal isShowed hideModal={() => setModalIsShowed(false)}>
+                    <UpdateTask
+                        id={id}
+                        title={title}
+                        description={description}
+                        hideModal={() => setModalIsShowed(false)}
+                    />
                 </Modal>
             ) : null
             }
