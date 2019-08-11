@@ -6,7 +6,6 @@ import {remove_task} from "../../../store/actions/tasks";
 import {remove_task_from_column} from "../../../store/actions/columns";
 import Modal from "../../UI/Modal/Modal";
 import UpdateTask from "../../UpdateTask";
-import {show_modal} from "../../../store/actions/UI";
 import UpdateAndDeleteButtons
     from "../../UI/UpdateAndDeleteButtons/UpdateAndDeleteButtons";
 
@@ -15,10 +14,6 @@ const Task = ({id, index, title, description, columnId, boardId}) => {
     const [modalIsShowed, setModalIsShowed] = useState(false);
 
     const dispatch = useDispatch();
-
-    const showModal = () => {
-        dispatch(show_modal());
-    };
 
     const removeTask = () => {
         const taskId = id;

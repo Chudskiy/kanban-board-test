@@ -38,16 +38,4 @@ const boardsReducer = (state = initialState, action) => {
     }
 };
 
-//
-// const getBoard = (boardId, boards) => {
-//     return boards.find((board, index) => {
-//         console.log('Func', board, boardId);
-//         return board.id === boardId
-//     })
-// };
-//
-// const getColumns = (board) => {
-//
-// };
-
 export default boardsReducer;

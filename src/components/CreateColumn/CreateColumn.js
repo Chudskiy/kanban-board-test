@@ -16,12 +16,16 @@ const CreateColumn = (props) => {
 
     const onKeyDownHandler = ({key}) => {
         if (key === 'Enter') {
-            addColumnHandler();
+            addColumnHandler(inputText);
             setInputText('')
         }
     };
 
     const addColumnHandler = () => {
+        if (inputText.trim().length === 0) {
+            return;
+        }
+
         dispatch(add_column({
             id: uuidv4(),
             title: inputText,
@@ -29,6 +33,11 @@ const CreateColumn = (props) => {
         }))
     };
 
+    const validateInput = (input) => {
+        if (input.trim().length === 0) {
+            return;
+        }
+    };
     return (
         <div
             className="flex justify-between items-center p-3 lg:w-64 bg-gray-200 border border-gray-500"
@@ -40,6 +49,7 @@ const CreateColumn = (props) => {
                 value={inputText}
                 className="p-2 w-full bg-gray-100 border border-gray-500 rounded"
                 type="text"
+                maxLength={20}
                 placeholder="Add new column"
             />
 

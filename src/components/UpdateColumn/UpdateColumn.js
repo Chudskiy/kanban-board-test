@@ -31,6 +31,7 @@ const UpdateColumn = (props) => {
                 className="p-2 bg-white border border-gray-600 rounded"
                 type="text"
                 value={title}
+                maxLength={20}
                 onChange={onTitleInputChange}
             />
 

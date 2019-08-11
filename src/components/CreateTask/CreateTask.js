@@ -47,6 +47,7 @@ const CreateColumn = ({columnId}) => {
                 value={inputText}
                 className="p-2 w-full bg-gray-100 border border-gray-500 rounded"
                 type="text"
+                maxLength={20}
                 placeholder="Add new task"
             />
 

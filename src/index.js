@@ -22,7 +22,6 @@ store.subscribe(throttle(() => {
         boards: store.getState().boards,
         columns: store.getState().columns,
         tasks: store.getState().tasks,
-        UI: store.getState().UI
     });
 }, 1000));
 

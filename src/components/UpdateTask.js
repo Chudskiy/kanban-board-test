@@ -36,7 +36,10 @@ const UpdateTask = (props) => {
             </label>
             <input
                 className="p-2 bg-white border border-gray-600 rounded"
-                type="text" value={title} onChange={onTitleInputChange}
+                type="text"
+                maxLength={20}
+                value={title}
+                onChange={onTitleInputChange}
             />
 
             <label className="text-xl mt-3 mb-2 block text-gray-800">

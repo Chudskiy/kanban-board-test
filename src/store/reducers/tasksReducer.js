@@ -2,21 +2,11 @@ import produce from "immer";
 import {handleActions} from "redux-actions";
 
 const initialState = {
-    // byId: {
-    //     [id]: {
-    //         id: id,
-    //         title: 'default task',
-    //         description: '',
-    //         index: 1
-    //     },
-    // },
-    // allIds: [id],
     byId: {},
     allIds: [],
 };
 
 const add_task = (tasks, action) => {
-    console.log('HELLO');
     const {id, title, description, columnId, createdAt} = action.payload;
 
     const newTask = {
@@ -28,12 +18,6 @@ const add_task = (tasks, action) => {
         updatedAt: null
     };
 
-    // const nextState =  produce(tasks, draft => {
-    //     draft.byId[id] = newTask;
-    //     draft.allIds.push(id);
-    // });
-
-    // console.log(nextState);
     return produce(tasks, draft => {
         draft.byId[id] = newTask;
         draft.allIds.push(id);

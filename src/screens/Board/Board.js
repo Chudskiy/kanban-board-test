@@ -7,7 +7,6 @@ import {move, reorder} from "../../DragAndDrop/DragAndDrop";
 import {change_column_id_in_task} from "../../store/actions/tasks";
 import {
     reorder_tasks_in_column,
-    reorder_tasks_in_columns,
     update_task_position_in_column
 } from "../../store/actions/columns";
 
