@@ -4,8 +4,6 @@ import {REMOVE_TASK, REMOVE_TASK_FROM_COLUMN} from "../store/actions/types";
 
 const TaskDetail = (props) => {
     const task = useSelector(state => state.tasks.byId[props.match.params.taskId]);
-    console.log(props);
-    console.log(task);
 
     const dispatch = useDispatch();
 
