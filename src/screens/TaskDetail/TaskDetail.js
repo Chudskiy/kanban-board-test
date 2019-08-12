@@ -48,13 +48,17 @@ const TaskDetail = ({match, history}) => {
                         <p className="p-4 mb-10">No description yet.</p>
                     )}
 
+                    {task.updatedAt ? (
+                        <p className="mb-10">
+                            <strong>Updated At: </strong>
+                            {moment(task.updatedAt).format('MMMM Do YYYY, h:mm a')}
+                        </p>
+                    ) : null
+                    }
+
                     <p className="mb-10">
-                        <strong>Updated At: </strong>
-                        {task.updatedAt ? (
-                            moment(task.updatedAt).format('MMMM Do YYYY, h:mm a')
-                        ) : (
-                            moment(task.createdAt).format('MMMM Do YYYY, h:mm a')
-                        )}
+                        <strong>Created At: </strong>
+                        {moment(task.createdAt).format('MMMM Do YYYY, h:mm a')}
                     </p>
 
                     <div className="flex justify-between mx-auto mt-5">
