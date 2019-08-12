@@ -52,7 +52,6 @@ const Column = ({title, columnId, boardId}) => {
                         style={{
                             height: !tasks.length ? '56px' : ''
                         }}
-                        // getListStyle(snapshot.isDraggingOver
                     >
                         <Tasks tasks={tasks} columnId={columnId}
                                boardId={boardId}/>

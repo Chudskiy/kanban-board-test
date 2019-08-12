@@ -34,10 +34,6 @@ const Task = ({id, index, title, description, columnId, boardId}) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        // style={getItemStyle(
-                        //     snapshot.isDragging,
-                        //     provided.draggableProps.style
-                        // )}
                     >
                         <div
                             className="flex justify-between p-4 bg-gray-400"
