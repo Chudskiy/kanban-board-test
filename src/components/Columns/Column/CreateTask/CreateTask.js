@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import uuidv4 from 'uuid/v4'
-import {add_column} from "../../store/actions/columns";
-import {add_column_to_board} from "../../store/actions/boards";
+import {add_task} from "../../../../store/actions/tasks";
+import {add_task_to_column} from "../../../../store/actions/columns";
 
-const CreateColumn = (props) => {
+const CreateColumn = ({columnId}) => {
     const [inputText, setInputText] = useState('');
-
-    // const boardId = useSelector(({boards}) => boards.byId[props.boardId].id);
-
 
     const dispatch = useDispatch();
 
@@ -18,33 +15,31 @@ const CreateColumn = (props) => {
 
     const onKeyDownHandler = ({key}) => {
         if (key === 'Enter') {
-            addColumnHandler(inputText);
-            setInputText('')
+            addTaskHandler();
+            setInputText('');
         }
     };
 
-    const addColumnHandler = () => {
+    const addTaskHandler = () => {
         if (inputText.trim().length === 0) {
-            return;
+            return
         }
         setInputText('');
 
-        const columnId = uuidv4();
-        dispatch(add_column({
-            id: columnId,
-            title: inputText,
-            boardId: props.boardId
-        }));
+        const taskId = uuidv4();
 
-        dispatch(add_column_to_board({
-            boardId: props.boardId,
-            columnId
-        }))
+        dispatch(add_task({
+            id: taskId,
+            createdAt: Date.now(),
+            title: inputText,
+            columnId: columnId
+        }));
+        dispatch(add_task_to_column({taskId, columnId}))
     };
 
     return (
         <div
-            className="flex justify-between items-center p-3 lg:w-64 bg-gray-200 border border-gray-500"
+            className="flex justify-between items-center lg:w-64 mt-5"
             style={{minWidth: '250px'}}
         >
             <input
@@ -54,13 +49,11 @@ const CreateColumn = (props) => {
                 className="p-2 w-full bg-gray-100 border border-gray-500 rounded"
                 type="text"
                 maxLength={20}
-                placeholder="Add new column"
+                placeholder="Add new task"
             />
 
-            <button
-                onClick={addColumnHandler}
-                className="p-2 bg-gray-300 hover:bg-gray-500 rounded">
-                Add
+            <button onClick={addTaskHandler}
+                    className="p-2 bg-gray-300 hover:bg-gray-500 bg-gray-400 ml-5 rounded">Add
             </button>
         </div>
     );

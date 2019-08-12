@@ -1,27 +1,10 @@
 import React from 'react';
-import UpdateTask from "../../UpdateTask";
-import UpdateColumn from "../../UpdateColumn/UpdateColumn";
 
-const Modal = ({isShowed, children, hideModal, type, data}) => {
-    // let modalBody = null;
-    //
-    // switch (type) {
-    //     case 'update_task':
-    //         modalBody = <UpdateTask task={data} hideModal={hideModal}/>;
-    //         break;
-    //     case 'update_column':
-    //         modalBody = <UpdateColumn column={data} hideModal={hideModal}/>;
-    //         break;
-    //
-    //     default:
-    //         return null
-    // }
-
-
+const Modal = ({isShowed, children, hideModal}) => {
     if (isShowed) {
         return (
             <div
-                className="modal fixed w-full h-full top-0 left-0 flex items-center justify-center">
+                className="modal fixed w-full h-full top-0 left-0 flex items-center justify-center rounded">
                 <div
                     className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"
                     onClick={hideModal}

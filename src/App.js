@@ -1,8 +1,9 @@
 import React, {Fragment} from 'react';
 import Layout from "./hoc/Layout/Layout";
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import Board from "./screens/Board/Board";
-import TaskDetail from "./screens/TaskDetail";
+import TaskDetail from "./screens/TaskDetail/TaskDetail";
+import Boards from "./screens/Boards/Boards";
 
 function App() {
     return (
@@ -12,7 +13,7 @@ function App() {
                     <Route
                         exact
                         path="/boards"
-                        // component={Home}
+                        component={Boards}
                     />
 
                     <Route
@@ -26,6 +27,8 @@ function App() {
                         path="/boards/:boardId/tasks/:taskId"
                         component={TaskDetail}
                     />
+
+                    <Redirect to="/boards"/>
                 </Switch>
             </Layout>
         </Fragment>

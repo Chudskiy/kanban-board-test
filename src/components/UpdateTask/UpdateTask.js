@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import {update_column} from "../../store/actions/columns";
+import {update_task} from "../../store/actions/tasks";
 
-const UpdateColumn = (props) => {
+const UpdateTask = (props) => {
     const [title, setTitle] = useState(props.title);
+    const [description, setDescription] = useState(props.description);
 
     const dispatch = useDispatch();
 
@@ -11,10 +12,16 @@ const UpdateColumn = (props) => {
         setTitle(target.value)
     };
 
-    const updateColumn = () => {
-        dispatch(update_column({
-            columnId: props.columnId,
-            title
+    const onDescrInputChange = ({target}) => {
+        setDescription(target.value)
+    };
+
+    const updateTask = () => {
+        dispatch(update_task({
+            taskId: props.id,
+            updatedAt: Date.now(),
+            title,
+            description
         }));
 
         props.hideModal();
@@ -22,7 +29,7 @@ const UpdateColumn = (props) => {
 
     return (
         <div className="flex flex-col justify-between p-4 bg-gray-100">
-            <h3 className="text-3xl text-center text-gray-900">Update Column</h3>
+            <h3 className="text-3xl text-center text-gray-900">Update Task</h3>
 
             <label className="text-xl mt-3 mb-2 block text-gray-800">
                 Title
@@ -30,16 +37,26 @@ const UpdateColumn = (props) => {
             <input
                 className="p-2 bg-white border border-gray-600 rounded"
                 type="text"
-                value={title}
                 maxLength={20}
+                value={title}
                 onChange={onTitleInputChange}
             />
 
+            <label className="text-xl mt-3 mb-2 block text-gray-800">
+                Description
+            </label>
+            <textarea
+                className="p-2 bg-white border border-gray-600 rounded"
+                type="text"
+                value={description}
+                onChange={onDescrInputChange}
+                placeholder="Description..."
+            />
 
             <div className="flex justify-between mx-auto mt-5">
                 <button
                     className="p-3 mr-4 bg-gray-400 rounded"
-                    onClick={updateColumn}
+                    onClick={updateTask}
                 >
                     Update
                 </button>
@@ -54,4 +71,4 @@ const UpdateColumn = (props) => {
     );
 };
 
-export default UpdateColumn;
+export default UpdateTask;
