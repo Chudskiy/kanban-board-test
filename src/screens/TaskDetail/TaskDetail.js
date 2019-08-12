@@ -38,6 +38,7 @@ const TaskDetail = ({match, history}) => {
                         <strong>Title: </strong>{task.title}
                     </h1>
 
+                    <p><strong>Column Title:</strong> {column.title}</p>
                     {task.description ? (
                         <p className="p-3 mb-10 h-32 overflow-y-scroll w-full">
                             <strong>Description: </strong>
