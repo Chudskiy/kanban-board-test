@@ -65,6 +65,8 @@ const remove_task_from_column = (columns, action) => {
 const update_task_position_in_column = (columns, action) => {
     const {destColumnId, sourceColumnId, tasks} = action.payload;
 
+    console.log(tasks);
+
     return produce(columns, draft => {
         draft.byId[destColumnId].tasks = [...tasks[destColumnId]];
         draft.byId[sourceColumnId].tasks = [...tasks[sourceColumnId]];
