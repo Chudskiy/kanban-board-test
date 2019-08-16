@@ -91,7 +91,7 @@ describe('boards reducer', () => {
     });
 
     it('should handle REMOVE COLUMN FROM BOARD', () => {
-        const initalState = {
+        const initialState = {
             byId: {
                 [boardId]: {
                     id: boardId,
