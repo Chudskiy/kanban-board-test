@@ -12,13 +12,11 @@ import uuidv4 from 'uuid/v4'
 let columnId;
 let columnId2;
 let taskId;
-let taskId2;
 
 beforeEach(function () {
     columnId = uuidv4();
     columnId2 = uuidv4();
     taskId = uuidv4();
-    taskId2 = uuidv4();
 });
 
 
@@ -150,7 +148,7 @@ describe('columns reducer', () => {
                 [columnId]: {
                     id: columnId,
                     title: 'new column',
-                    tasks: [taskId, taskId2],
+                    tasks: [taskId],
                 }
             },
             allIds: [columnId]
