@@ -2,25 +2,12 @@ import reducer from "./boardsReducer"
 import {ADD_BOARD, ADD_COLUMN_TO_BOARD, REMOVE_COLUMN_FROM_BOARD} from "../actions/types";
 import uuidv4 from 'uuid/v4'
 
-let initialState;
-let updatedState;
 let boardId;
 let columnId;
 
 beforeEach(function () {
     boardId = uuidv4();
     columnId = uuidv4();
-
-    updatedState = {
-        byId: {
-            [boardId]: {
-                id: boardId,
-                title: 'new board',
-                columns: [],
-            }
-        },
-        allIds: [boardId]
-    };
 });
 
 
