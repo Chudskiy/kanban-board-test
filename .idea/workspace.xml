@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/store/reducers/boardsReducer.js" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd46f176-6efc-4b75-967a-356c0c622617" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="cd46f176-6efc-4b75-967a-356c0c622617" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
